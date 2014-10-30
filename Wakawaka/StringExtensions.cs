@@ -65,7 +65,14 @@ namespace Wakawaka
             if (value == null) return null;
             if (value.Length == 0) return string.Empty;
 
-            return new String(value.Except(chars).ToArray())
+            var builder = new StringBuilder(value.Length);
+            foreach (var c in value)
+            {
+                if (!chars.Contains(c))
+                    builder.Append(c);
+            }
+
+            return builder.ToString();
         }
 
         /// <summary>
