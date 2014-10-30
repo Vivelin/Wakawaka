@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Wakawaka.App
 {
@@ -6,17 +7,22 @@ namespace Wakawaka.App
     {
         static void Main(string[] args)
         {
+            Console.Title ="Wakawaka";
+
             if (args.Length > 0)
             {
                 var fileName = args[0];
 
                 var xmlDoc = XmlDocumentation.Load(fileName);
-                foreach (var member in xmlDoc.GetMembers())
+
+                var types = from member in xmlDoc.GetMembers()
+                              where member.ID.Prefix == ID.MemberType.Type
+                              orderby member.ID.FullName ascending
+                              select member;
+
+                foreach (var member in types)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(member);
-                    Console.ResetColor();
-                    Console.WriteLine(member.Summary);
+                    Console.WriteLine(member.ToMarkdown());
                     Console.WriteLine();
                 }
             }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wakawaka", "Wakawaka\Wakawa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wakawaka.App", "Wakawaka.App\Wakawaka.App.csproj", "{86524A4A-72A5-461D-AD4B-8911AD03DE9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wakawaka.Tests", "Wakawaka.Tests\Wakawaka.Tests.csproj", "{EAF19865-0704-4F26-8824-06D2C7C2874A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{86524A4A-72A5-461D-AD4B-8911AD03DE9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86524A4A-72A5-461D-AD4B-8911AD03DE9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86524A4A-72A5-461D-AD4B-8911AD03DE9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAF19865-0704-4F26-8824-06D2C7C2874A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAF19865-0704-4F26-8824-06D2C7C2874A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAF19865-0704-4F26-8824-06D2C7C2874A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAF19865-0704-4F26-8824-06D2C7C2874A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

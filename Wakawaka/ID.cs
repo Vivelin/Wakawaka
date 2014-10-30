@@ -10,10 +10,10 @@ namespace Wakawaka
     public class ID
     {
         /// <summary>
-        /// Gets a regular expression that parses ID strings.
+        /// A regular expression that parses ID strings.
         /// </summary>
         protected readonly Regex parser =
-            new Regex(@"^(?<P>[NTFPME!]):(?<N>(?:[^.`()\s]+\.)*)(?<M>[^.()`\s]+)(?<E>.*)$");
+            new Regex(@"^(?<P>[NTFPME!]):(?<N>(?:[^*@^|![(\s]+))(?<E>.*)$");
         private string identifier;
 
         /// <summary>
@@ -93,17 +93,27 @@ namespace Wakawaka
         public MemberType Prefix { get; protected set; }
 
         /// <summary>
-        /// Gets or sets the fully qualified name of the member being 
-        /// identified, starting at the root of the namespace. Periods in names
-        /// have been replaced with '#'.
+        /// Gets the fully qualified name of the member being identified, 
+        /// starting at the root of the namespace. Periods in names have been 
+        /// replaced with `#`.
         /// </summary>
         public string FullName { get; protected set; }
 
         /// <summary>
-        /// Gets a string that contains a representation of the ID string that
-        /// can be used for display purposes, e.g. as the text of a hyperlink.
+        /// Gets the namespace the member being identified exists in.
         /// </summary>
-        public string DisplayName { get; protected set; }
+        public string Namespace { get; protected set; }
+
+        /// <summary>
+        /// If the member being identified is not a type or namespace, gets the
+        /// name of the class it exists in.
+        /// </summary>
+        public string ClassName { get; protected set; }
+
+        /// <summary>
+        /// Gets the name of the member being identified.
+        /// </summary>
+        public string Name { get; protected set; }
 
         /// <summary>
         /// Gets any additional unparsed information present in the ID string.
@@ -150,14 +160,20 @@ namespace Wakawaka
             if (match.Success)
             {
                 var prefix = match.Groups["P"].Value[0];
-                var ns = match.Groups["N"].Value;
-                var member = match.Groups["M"].Value;
+                var name = match.Groups["N"].Value;
                 var extra = match.Groups["E"].Value;
 
                 Prefix = (MemberType)prefix;
-                FullName = ns + member;
-                DisplayName = member;
+                FullName = name;
                 Arguments = extra;
+
+                var parts = name.Split('.').Replace("#", ".");
+                var index = parts.Length - 1;
+
+                Name = parts[index--];
+                if (Prefix != MemberType.Namespace && Prefix != MemberType.Type)
+                    ClassName = parts[index--];
+                Namespace = string.Join(".", parts, 0, index + 1);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Xml.Linq;
 
 namespace Wakawaka
@@ -17,19 +18,36 @@ namespace Wakawaka
         /// contains the XML documenation for the member.</param>
         protected Member(string id, XElement member)
         {
-            ID = id;
-            Summary = member.Element("summary").ToMarkdown();
+            ID = new ID(id);
+            if (member.Element("summary") != null)
+                Summary = member.Element("summary").ToMarkdown();
+            if (member.Element("example") != null)
+                Example = member.Element("example").ToMarkdown();
+            if (member.Element("remarks") != null)
+                Remarks = member.Element("remarks").ToMarkdown();
         }
 
         /// <summary>
         /// Gets the ID string that identifies the <see cref="Member"/>.
         /// </summary>
-        public string ID { get; protected set; }
+        public ID ID { get; protected set; }
 
         /// <summary>
         /// Gets a string that is used to describe a member.
         /// </summary>
         public string Summary { get; protected set; }
+
+        /// <summary>
+        /// Gets a string that is used to specify an example of how to use a 
+        /// method or other library member.
+        /// </summary>
+        public string Example { get; protected set; }
+
+        /// <summary>
+        /// Gets a string that is used to add information about a type, 
+        /// supplementing the information specified with <see cref="Summary"/>.
+        /// </summary>
+        public string Remarks { get; protected set; }
         
         /// <summary>
         /// Creates a new <see cref="Member"/> object for the specified <see 
@@ -52,18 +70,37 @@ namespace Wakawaka
             var prefix = name[0];
             switch (prefix)
             {
+                case 'N': throw new Exception("You cannot add documentation to a namespace");
                 case 'T': return new Type(name, element);
+                case 'F': return new Field(name, element);
+                case 'P': return new Property(name, element);
+                case 'M': return new Method(name, element);
+                case 'E': return new Event(name, element);
+                case '!': throw new Exception("You cannot add documentation to an error");
                 default: return new Member(name, element);
             }
         }
 
         /// <summary>
-        /// Gets a string representation of the <see cref="Member"/>.
+        /// Returns a Markdown representation of the <see cref="Member"/>.
+        /// </summary>
+        /// <returns>A string containing the Markdown-formatted contents of the
+        /// <see cref="Member"/>.</returns>
+        public virtual string ToMarkdown()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine(Markdown.Heading(ToString()));
+            builder.AppendLine(Summary);
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Returns a string representation of the <see cref="Member"/>.
         /// </summary>
         /// <returns>A string containing the ID string.</returns>
         public override string ToString()
         {
-            return ID;
+            return ID.FullName;
         }
     }
 }

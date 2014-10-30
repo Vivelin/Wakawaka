@@ -86,5 +86,44 @@ namespace Wakawaka
         {
             return value.Trim().Delete('\n', '\r').Squeeze();
         }
+
+        /// <summary>
+        /// Returns a new string array, calling <see cref="string.Replace(string,
+        /// string)"/> for each element using the specified parameters.
+        /// </summary>
+        /// <param name="value">The string array whose elements to operate on.
+        /// </param>
+        /// <param name="oldValue">The string to be replaced.</param>
+        /// <param name="newValue">The string to replace all occurrences of
+        /// <paramref name="oldValue"/>.</param>
+        /// <returns>A new string array where all occurrences of <paramref 
+        /// name="oldValue"/> in elements have been replaced.</returns>
+        public static string[] Replace(this string[] value, string oldValue, 
+            string newValue)
+        {
+            var result = new string[value.Length];
+
+            for (int i = 0; i < value.Length; i++)
+            {
+                result[i] = value[i].Replace(oldValue, newValue);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a new string that has been underlined with the specified
+        /// character.
+        /// </summary>
+        /// <param name="value">The string to underline.</param>
+        /// <param name="lineChar">The character to underline <paramref 
+        /// name="value"/> with.</param>
+        /// <returns>A new string that has a second line appended to it.</returns>
+        public static string Underline(this string value, char lineChar = '=')
+        {
+            var result = value + Environment.NewLine;
+            var length = (value.Length * 2) + Environment.NewLine.Length;
+            return result.PadRight(length, lineChar);
+        }
     }
 }
