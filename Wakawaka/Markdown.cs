@@ -125,8 +125,7 @@ namespace Wakawaka
                 case 5: return "##### " + text;
                 case 6: return "###### " + text;
                 default:
-                    throw new ArgumentOutOfRangeException("level",
-               "level must be a value between 1 and 6.");
+                    throw new ArgumentOutOfRangeException(nameof(level), SR.HeaderOutOfRange);
             }
         }
 

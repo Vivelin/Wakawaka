@@ -59,5 +59,50 @@ namespace Wakawaka.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Markdown header must be a value between 1 and 6..
+        /// </summary>
+        internal static string HeaderOutOfRange {
+            get {
+                return ResourceManager.GetString("HeaderOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified element does not have a &apos;name&apos; attribute..
+        /// </summary>
+        internal static string MissingName {
+            get {
+                return ResourceManager.GetString("MissingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified element&apos;s name is too short..
+        /// </summary>
+        internal static string NameTooShort {
+            get {
+                return ResourceManager.GetString("NameTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cannot add XML documentation to an error..
+        /// </summary>
+        internal static string NoErrorDoc {
+            get {
+                return ResourceManager.GetString("NoErrorDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cannot add XML documentation to a namespace..
+        /// </summary>
+        internal static string NoNamespaceDoc {
+            get {
+                return ResourceManager.GetString("NoNamespaceDoc", resourceCulture);
+            }
+        }
     }
 }

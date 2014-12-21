@@ -65,21 +65,19 @@ namespace Wakawaka.Documentation
         public static Member Create(XElement element)
         {
             var name = element.Attribute("name").Value;
-            if (name == null)
-                throw new ArgumentException("The specified element does not have a name attribute", "element");
-            if (name.Length < 3)
-                throw new ArgumentException("The length of the name attribute is too short", "element");
+            if (name == null) throw new ArgumentException(SR.MissingName);
+            if (name.Length < 3) throw new ArgumentException(SR.NameTooShort);
 
             var prefix = name[0];
             switch (prefix)
             {
-                case 'N': throw new Exception("You cannot add documentation to a namespace");
+                case 'N': throw new Exception(SR.NoNamespaceDoc);
                 case 'T': return new Type(name, element);
                 case 'F': return new Field(name, element);
                 case 'P': return new Property(name, element);
                 case 'M': return new Method(name, element);
                 case 'E': return new Event(name, element);
-                case '!': throw new Exception("You cannot add documentation to an error");
+                case '!': throw new Exception(SR.NoErrorDoc);
                 default: return new Member(name, element);
             }
         }
