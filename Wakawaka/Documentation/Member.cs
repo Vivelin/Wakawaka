@@ -86,11 +86,11 @@ namespace Wakawaka.Documentation
         /// Renders a Markdown representation of the <see cref="Member"/>.
         /// </summary>
         /// <param name="writer">
-        /// The <see cref="System.IO.TextWriter"/> object to write to.
+        /// The <see cref="MarkdownTextWriter"/> object to write to.
         /// </param>
-        public virtual void Render(System.IO.TextWriter writer)
+        public virtual void Render(MarkdownTextWriter writer)
         {
-            writer.WriteLine(Markdown.Heading(ToString()));
+            writer.WriteHeading(ToString());
             writer.WriteLine(Summary);
         }
 

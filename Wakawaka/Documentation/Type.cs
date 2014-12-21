@@ -25,17 +25,17 @@ namespace Wakawaka.Documentation
         /// Renders a Markdown representation of the <see cref="Type"/>.
         /// </summary>
         /// <param name="writer">
-        /// The <see cref="System.IO.TextWriter"/> object to write to.
+        /// The <see cref="MarkdownTextWriter"/> object to write to.
         /// </param>
-        public override void Render(System.IO.TextWriter writer)
+        public override void Render(MarkdownTextWriter writer)
         {
-            writer.WriteLine(Markdown.Heading(ToString()));
+            writer.WriteHeading(ToString());
             writer.WriteLine(Summary);
             writer.WriteLine();
 
             if (Example != null)
             {
-                writer.WriteLine(Markdown.Heading("Examples", 2));
+                writer.WriteHeading("Examples", 2);
                 writer.WriteLine(Example);
             }
         }

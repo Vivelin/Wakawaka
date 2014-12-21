@@ -61,6 +61,15 @@ namespace Wakawaka.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An ATX header can only be a level 1 to 6 heading..
+        /// </summary>
+        internal static string AtxHeaderOutOfRange {
+            get {
+                return ResourceManager.GetString("AtxHeaderOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A Markdown header must be a value between 1 and 6..
         /// </summary>
         internal static string HeaderOutOfRange {
@@ -102,6 +111,15 @@ namespace Wakawaka.Resources {
         internal static string NoNamespaceDoc {
             get {
                 return ResourceManager.GetString("NoNamespaceDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Setext header can only be a level 1 or 2 heading..
+        /// </summary>
+        internal static string SetextHeaderOutOfRange {
+            get {
+                return ResourceManager.GetString("SetextHeaderOutOfRange", resourceCulture);
             }
         }
     }

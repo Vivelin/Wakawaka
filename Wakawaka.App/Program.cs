@@ -8,7 +8,7 @@ namespace Wakawaka.App
     {
         static void Main(string[] args)
         {
-            Console.Title ="Wakawaka";
+            Console.Title = "Wakawaka";
 
             if (args.Length > 0)
             {
@@ -17,24 +17,25 @@ namespace Wakawaka.App
                 var xmlDoc = XmlDocumentation.Load(fileName);
 
                 var types = from member in xmlDoc.GetMembers()
-                              where member.ID.Prefix == ID.MemberType.Type
-                              orderby member.ID.FullName ascending
-                              select member;
+                            where member.ID.Prefix == ID.MemberType.Type
+                            orderby member.ID.FullName ascending
+                            select member;
 
                 foreach (var member in types)
                 {
-                    using (var writer = new StringWriter())
+                    using (var baseWriter = new StringWriter())
                     {
+                        var writer = new MarkdownTextWriter(baseWriter);
                         member.Render(writer);
 
-                        Console.WriteLine(writer.ToString());
+                        Console.WriteLine(baseWriter.ToString());
                         Console.WriteLine();
                     }
                 }
             }
             else
             {
-                Console.Error.WriteLine("Usage: {0} filename", 
+                Console.Error.WriteLine("Usage: {0} filename",
                     AppDomain.CurrentDomain.FriendlyName);
             }
         }

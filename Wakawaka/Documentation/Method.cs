@@ -42,16 +42,16 @@ namespace Wakawaka.Documentation
         /// Renders a Markdown representation of the <see cref="Method"/>.
         /// </summary>
         /// <param name="writer">
-        /// The <see cref="System.IO.TextWriter"/> object to write to.
+        /// The <see cref="MarkdownTextWriter"/> object to write to.
         /// </param>
-        public override void Render(System.IO.TextWriter writer)
+        public override void Render(MarkdownTextWriter writer)
         {
-            writer.WriteLine(Markdown.Heading(ToString()));
+            writer.WriteHeading(ToString());
             writer.WriteLine(Summary);
             writer.WriteLine();
             if (ReturnValue != null)
             {
-                writer.WriteLine(Markdown.Heading("Return Value", 3));
+                writer.WriteHeading("Return Value", 3);
                 writer.WriteLine(ReturnValue);
                 writer.WriteLine();
             }
@@ -60,13 +60,13 @@ namespace Wakawaka.Documentation
 
             if (Remarks != null)
             {
-                writer.WriteLine(Markdown.Heading("Remarks", 2));
+                writer.WriteHeading("Remarks", 2);
                 writer.WriteLine(Remarks);
                 writer.WriteLine();
             }
             if (Example != null)
             {
-                writer.WriteLine(Markdown.Heading("Examples", 2));
+                writer.WriteHeading("Examples", 2);
                 writer.WriteLine(ReturnValue);
                 writer.WriteLine();
             }

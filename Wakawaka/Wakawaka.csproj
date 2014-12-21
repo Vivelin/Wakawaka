@@ -47,11 +47,25 @@
     <Compile Include="Documentation\Member.cs" />
     <Compile Include="Documentation\Method.cs" />
     <Compile Include="Documentation\Property.cs" />
+    <Compile Include="MarkdownTextWriter.cs" />
+    <Compile Include="MarkdownTextWriterSettings.cs" />
+    <Compile Include="Resources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SR.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Documentation\Type.cs" />
-    <Compile Include="Markdown.cs" />
+    <Compile Include="MarkdownExtensions.cs" />
     <Compile Include="XmlDocumentation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
