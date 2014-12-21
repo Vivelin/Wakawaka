@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Text;
 using System.Xml.Linq;
 
-namespace Wakawaka
+namespace Wakawaka.Documentation
 {
     /// <summary>
     /// Represents the XML documentation for a single member.
@@ -82,16 +81,15 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Returns a Markdown representation of the <see cref="Member"/>.
+        /// Renders a Markdown representation of the <see cref="Member"/>.
         /// </summary>
-        /// <returns>A string containing the Markdown-formatted contents of the
-        /// <see cref="Member"/>.</returns>
-        public virtual string ToMarkdown()
+        /// <param name="writer">
+        /// The <see cref="System.IO.TextWriter"/> object to write to.
+        /// </param>
+        public virtual void Render(System.IO.TextWriter writer)
         {
-            var builder = new StringBuilder();
-            builder.AppendLine(Markdown.Heading(ToString()));
-            builder.AppendLine(Summary);
-            return builder.ToString();
+            writer.WriteLine(Markdown.Heading(ToString()));
+            writer.WriteLine(Summary);
         }
 
         /// <summary>

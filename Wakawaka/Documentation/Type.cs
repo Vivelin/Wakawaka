@@ -1,7 +1,6 @@
-﻿using System.Text;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
-namespace Wakawaka
+namespace Wakawaka.Documentation
 {
     /// <summary>
     /// Represents the XML documentation for a type (e.g. class, interface, 
@@ -20,23 +19,22 @@ namespace Wakawaka
             : base(id, member) { }
 
         /// <summary>
-        /// Returns a Markdown representation of the <see cref="Type"/>.
+        /// Renders a Markdown representation of the <see cref="Type"/>.
         /// </summary>
-        /// <returns>A string containing the Markdown-formatted contents of the
-        /// <see cref="Type"/>.</returns>
-        public override string ToMarkdown()
+        /// <param name="writer">
+        /// The <see cref="System.IO.TextWriter"/> object to write to.
+        /// </param>
+        public override void Render(System.IO.TextWriter writer)
         {
-            var content = new StringBuilder();
-            content.AppendLine(Markdown.Heading(ToString()));
-            content.AppendLine(Summary);
-            content.AppendLine();
+            writer.WriteLine(Markdown.Heading(ToString()));
+            writer.WriteLine(Summary);
+            writer.WriteLine();
 
             if (Example != null)
             {
-                content.AppendLine(Markdown.Heading("Examples", 2));
-                content.AppendLine(Example);
+                writer.WriteLine(Markdown.Heading("Examples", 2));
+                writer.WriteLine(Example);
             }
-            return content.ToString();
         }
 
         /// <summary>

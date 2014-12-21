@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace Wakawaka
+namespace Wakawaka.Documentation
 {
     /// <summary>
     /// Represents the XML documentation for a field.

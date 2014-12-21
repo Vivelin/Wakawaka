@@ -1,7 +1,6 @@
-﻿using System.Text;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
-namespace Wakawaka
+namespace Wakawaka.Documentation
 {
     /// <summary>
     /// Represents the XML documentation for a method.
@@ -37,39 +36,39 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Returns a Markdown representation of the <see cref="Method"/>.
+        /// Renders a Markdown representation of the <see cref="Method"/>.
         /// </summary>
-        /// <returns>A string containing the Markdown-formatted contents of the
-        /// <see cref="Method"/>.</returns>
-        public override string ToMarkdown()
+        /// <param name="writer">
+        /// The <see cref="System.IO.TextWriter"/> object to write to.
+        /// </param>
+        public override void Render(System.IO.TextWriter writer)
         {
-            var content = new StringBuilder();
-            content.AppendLine(Markdown.Heading(ToString()));
-            content.AppendLine(Summary);
-            content.AppendLine();
+            writer.WriteLine(Markdown.Heading(ToString()));
+            writer.WriteLine(Summary);
+            writer.WriteLine();
             if (ReturnValue != null)
             {
-                content.AppendLine(Markdown.Heading("Return Value", 3));
-                content.AppendLine(ReturnValue);
-                content.AppendLine();
+                writer.WriteLine(Markdown.Heading("Return Value", 3));
+                writer.WriteLine(ReturnValue);
+                writer.WriteLine();
             }
 
             // Parameters
 
             if (Remarks != null)
             {
-                content.AppendLine(Markdown.Heading("Remarks", 2));
-                content.AppendLine(Remarks);
-                content.AppendLine();
+                writer.WriteLine(Markdown.Heading("Remarks", 2));
+                writer.WriteLine(Remarks);
+                writer.WriteLine();
             }
             if (Example != null)
             {
-                content.AppendLine(Markdown.Heading("Examples", 2));
-                content.AppendLine(ReturnValue);
-                content.AppendLine();
+                writer.WriteLine(Markdown.Heading("Examples", 2));
+                writer.WriteLine(ReturnValue);
+                writer.WriteLine();
             }
+
             // See Also
-            return content.ToString();
         }
 
         /// <summary>

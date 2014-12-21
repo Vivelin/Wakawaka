@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace Wakawaka.App
@@ -22,8 +23,13 @@ namespace Wakawaka.App
 
                 foreach (var member in types)
                 {
-                    Console.WriteLine(member.ToMarkdown());
-                    Console.WriteLine();
+                    using (var writer = new StringWriter())
+                    {
+                        member.Render(writer);
+
+                        Console.WriteLine(writer.ToString());
+                        Console.WriteLine();
+                    }
                 }
             }
             else
