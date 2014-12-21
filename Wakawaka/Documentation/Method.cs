@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
+using Wakawaka.Documentation.Tags;
 
 namespace Wakawaka.Documentation
 {
@@ -21,14 +22,14 @@ namespace Wakawaka.Documentation
             : base(id, member)
         {
             if (member.Element("returns") != null)
-                ReturnValue = member.Element("returns").ToMarkdown();
+                ReturnValue = Tag.Create(member.Element("returns"));
         }
 
         /// <summary>
         /// Gets a string that is used to describe the return value of the
         /// method.
         /// </summary>
-        public string ReturnValue { get; protected set; }
+        public Tag ReturnValue { get; }
 
         /// <summary>
         /// Gets a value indicating whether the method is a constructor.
@@ -46,13 +47,12 @@ namespace Wakawaka.Documentation
         /// </param>
         public override void Render(MarkdownTextWriter writer)
         {
-            writer.WriteHeading(ToString());
-            writer.WriteLine(Summary);
-            writer.WriteLine();
+            base.Render(writer);
+
             if (ReturnValue != null)
             {
                 writer.WriteHeading("Return Value", 3);
-                writer.WriteLine(ReturnValue);
+                ReturnValue.Render(writer);
                 writer.WriteLine();
             }
 
@@ -61,13 +61,13 @@ namespace Wakawaka.Documentation
             if (Remarks != null)
             {
                 writer.WriteHeading("Remarks", 2);
-                writer.WriteLine(Remarks);
+                Remarks.Render(writer);
                 writer.WriteLine();
             }
             if (Example != null)
             {
                 writer.WriteHeading("Examples", 2);
-                writer.WriteLine(ReturnValue);
+                Example.Render(writer);
                 writer.WriteLine();
             }
 

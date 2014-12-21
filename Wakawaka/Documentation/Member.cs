@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
+using Wakawaka.Documentation.Tags;
 
 namespace Wakawaka.Documentation
 {
@@ -21,11 +22,11 @@ namespace Wakawaka.Documentation
         {
             ID = new ID(id);
             if (member.Element("summary") != null)
-                Summary = member.Element("summary").ToMarkdown();
+                Summary = Tag.Create(member.Element("summary"));
             if (member.Element("example") != null)
-                Example = member.Element("example").ToMarkdown();
+                Example = Tag.Create(member.Element("example"));
             if (member.Element("remarks") != null)
-                Remarks = member.Element("remarks").ToMarkdown();
+                Remarks = Tag.Create(member.Element("remarks"));
         }
 
         /// <summary>
@@ -36,19 +37,19 @@ namespace Wakawaka.Documentation
         /// <summary>
         /// Gets a string that is used to describe a member.
         /// </summary>
-        public string Summary { get; protected set; }
+        public Tag Summary { get; }
 
         /// <summary>
         /// Gets a string that is used to specify an example of how to use a 
         /// method or other library member.
         /// </summary>
-        public string Example { get; protected set; }
+        public Tag Example { get; }
 
         /// <summary>
         /// Gets a string that is used to add information about a type, 
         /// supplementing the information specified with <see cref="Summary"/>.
         /// </summary>
-        public string Remarks { get; protected set; }
+        public Tag Remarks { get; }
         
         /// <summary>
         /// Creates a new <see cref="Member"/> object for the specified <see 
@@ -91,7 +92,8 @@ namespace Wakawaka.Documentation
         public virtual void Render(MarkdownTextWriter writer)
         {
             writer.WriteHeading(ToString());
-            writer.WriteLine(Summary);
+            Summary.Render(writer);
+            writer.WriteLine();
         }
 
         /// <summary>

@@ -43,6 +43,12 @@
   <ItemGroup>
     <Compile Include="Documentation\Event.cs" />
     <Compile Include="Documentation\Field.cs" />
+    <Compile Include="Documentation\Tags\CodeTag.cs" />
+    <Compile Include="Documentation\Tags\CTag.cs" />
+    <Compile Include="Documentation\Tags\ParamRefTag.cs" />
+    <Compile Include="Documentation\Tags\ParaTag.cs" />
+    <Compile Include="Documentation\Tags\SeeTag.cs" />
+    <Compile Include="Documentation\Tags\Tag.cs" />
     <Compile Include="ID.cs" />
     <Compile Include="Documentation\Member.cs" />
     <Compile Include="Documentation\Method.cs" />
@@ -57,7 +63,6 @@
     <Compile Include="SR.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Documentation\Type.cs" />
-    <Compile Include="MarkdownExtensions.cs" />
     <Compile Include="XmlDocumentation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,7 +17,7 @@ namespace Wakawaka.App
                 var xmlDoc = XmlDocumentation.Load(fileName);
 
                 var types = from member in xmlDoc.GetMembers()
-                            where member.ID.Prefix == ID.MemberType.Type
+                            where member.ID.Prefix == ID.MemberType.Method
                             orderby member.ID.FullName ascending
                             select member;
 

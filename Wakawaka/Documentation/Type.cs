@@ -29,14 +29,13 @@ namespace Wakawaka.Documentation
         /// </param>
         public override void Render(MarkdownTextWriter writer)
         {
-            writer.WriteHeading(ToString());
-            writer.WriteLine(Summary);
-            writer.WriteLine();
+            base.Render(writer);
 
             if (Example != null)
             {
                 writer.WriteHeading("Examples", 2);
-                writer.WriteLine(Example);
+                Example.Render(writer);
+                writer.WriteLine();
             }
         }
 

@@ -126,24 +126,6 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Returns a new string that has been underlined with the specified
-        /// character.
-        /// </summary>
-        /// <param name="value">The string to underline.</param>
-        /// <param name="lineChar">
-        /// The character to underline <paramref name="value"/> with.
-        /// </param>
-        /// <returns>
-        /// A new string that has a second line appended to it.
-        /// </returns>
-        public static string Underline(this string value, char lineChar = '=')
-        {
-            var result = value + Environment.NewLine;
-            var length = (value.Length * 2) + Environment.NewLine.Length;
-            return result.PadRight(length, lineChar);
-        }
-
-        /// <summary>
         /// Replaces one or more format items in the string with a string 
         /// representation of the corresponding object.
         /// </summary>
@@ -160,6 +142,21 @@ namespace Wakawaka
             if (args == null)
                 return format;
             return String.Format(format, args);
+        }
+
+        /// <summary>
+        /// Removes line endings from the string and replaces multiple 
+        /// occurrences of white-space by a single occurrence.
+        /// </summary>
+        /// <param name="value">
+        /// The value to convert to a single-line string.
+        /// </param>
+        /// <returns>A new, single-line string, or <c>null</c>.</returns>
+        public static string ToSingleLine(this string value)
+        {
+            if (value == null) return null;
+
+            return value.Delete('\n', '\r').Squeeze();
         }
     }
 }
