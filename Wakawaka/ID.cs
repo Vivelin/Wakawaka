@@ -144,7 +144,9 @@ namespace Wakawaka
         /// <summary>
         /// Returns a string representation of the <see cref="ID"/> string.
         /// </summary>
-        /// <returns>A string containing the fully qualified ID string.</returns>
+        /// <returns>
+        /// A string containing the fully qualified ID string.
+        /// </returns>
         public override string ToString()
         {
             return identifier;

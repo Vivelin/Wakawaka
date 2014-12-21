@@ -13,9 +13,13 @@ namespace Wakawaka
         /// <summary>
         /// Returns a Markdown representation of the <see cref="XNode"/> node.
         /// </summary>
-        /// <param name="node">The <see cref="XNode"/> node to convert.</param>
-        /// <returns>A Markdown-formatted string containing the contents of the
-        /// abstract node.</returns>
+        /// <param name="node">
+        /// The <see cref="XNode"/> node to convert.
+        /// </param>
+        /// <returns>
+        /// A Markdown-formatted string containing the contents of the abstract 
+        /// node.
+        /// </returns>
         public static string ToMarkdown(this XNode node)
         {
             if (node is XText)
@@ -30,9 +34,13 @@ namespace Wakawaka
         /// <summary>
         /// Returns a Markdown representation of the <see cref="XElement"/>.
         /// </summary>
-        /// <param name="node">The <see cref="XElement"/> to convert.</param>
-        /// <returns>A string containing the contents of the element, formatted
-        /// as Markdown.</returns>
+        /// <param name="node">
+        /// The <see cref="XElement"/> to convert.
+        /// </param>
+        /// <returns>
+        /// A string containing the contents of the element, formatted as 
+        /// Markdown.
+        /// </returns>
         public static string ToMarkdown(this XElement node)
         {
             var builder = new StringBuilder();
@@ -62,7 +70,7 @@ namespace Wakawaka
                 builder.AppendLine(node.Value.Trim());
 
                 // Don't trim the start of the string for obvious reasons
-                return builder.ToString().TrimEnd(); 
+                return builder.ToString().TrimEnd();
             }
             else
             {
@@ -78,9 +86,13 @@ namespace Wakawaka
         /// <summary>
         /// Returns a Markdown representation of the <see cref="XText"/> node.
         /// </summary>
-        /// <param name="node">The <see cref="XText"/> node to convert.</param>
-        /// <returns>A Markdown-formatted string containing the contents of the
-        /// text node.</returns>
+        /// <param name="node">
+        /// The <see cref="XText"/> node to convert.
+        /// </param>
+        /// <returns>
+        /// A Markdown-formatted string containing the contents of the text 
+        /// node.
+        /// </returns>
         public static string ToMarkdown(this XText node)
         {
             return node.Value.Delete('\n', '\r').Squeeze();
@@ -91,13 +103,17 @@ namespace Wakawaka
         /// headers for level 3 to 6 headers.
         /// </summary>
         /// <param name="text">The text to format as a header.</param>
-        /// <param name="level">The one-based level of the header to format.
+        /// <param name="level">
+        /// The one-based level of the header to format.
         /// </param>
-        /// <returns>A string formatted as a Setext header if <paramref 
-        /// name="level"/> is equal to 1 or 2, or formatted as an ATX header if
-        /// <paramref name="level"/> is between 3 or 6.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref 
-        /// name="level"/> must be a value between 1 and 6.</exception>
+        /// <returns>
+        /// A string formatted as a Setext header if <paramref name="level"/> 
+        /// is equal to 1 or 2, or formatted as an ATX header if <paramref 
+        /// name="level"/> is between 3 or 6.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="level"/> must be a value between 1 and 6.
+        /// </exception>
         public static string Heading(string text, int level = 1)
         {
             switch (level)
@@ -108,8 +124,9 @@ namespace Wakawaka
                 case 4: return "#### " + text;
                 case 5: return "##### " + text;
                 case 6: return "###### " + text;
-                default: throw new ArgumentOutOfRangeException("level",
-                    "level must be a value between 1 and 6.");
+                default:
+                    throw new ArgumentOutOfRangeException("level",
+               "level must be a value between 1 and 6.");
             }
         }
 
@@ -117,8 +134,9 @@ namespace Wakawaka
         /// Formats the specified text as an inline code span.
         /// </summary>
         /// <param name="text">The text to format as code.</param>
-        /// <returns>A string containing the text enclosed by one or two 
-        /// backticks.</returns>
+        /// <returns>
+        /// A string containing the text enclosed by one or two backticks.
+        /// </returns>
         public static string CodeSpan(string text)
         {
             if (text.Contains("`") && !text.Contains("``"))
@@ -130,7 +148,8 @@ namespace Wakawaka
         /// Formats the specified text as a fenced code block.
         /// </summary>
         /// <param name="text">The text to format as code.</param>
-        /// <returns>A string containing the text enclosed by a code fence.
+        /// <returns>
+        /// A string containing the text enclosed by a code fence.
         /// </returns>
         public static string CodeBlock(string text)
         {
@@ -145,7 +164,8 @@ namespace Wakawaka
         /// Formats the specified text with emphasis.
         /// </summary>
         /// <param name="text">The text to emphasise.</param>
-        /// <returns>A string containing the text enclosed with emphasis marks.
+        /// <returns>
+        /// A string containing the text enclosed with emphasis marks.
         /// </returns>
         public static string Emphasis(string text)
         {
@@ -160,7 +180,8 @@ namespace Wakawaka
         /// Formats the specified link as an autolink.
         /// </summary>
         /// <param name="target">The absolute URI to link to.</param>
-        /// <returns>A new string containing a Markdown-formatted autolink.
+        /// <returns>
+        /// A new string containing a Markdown-formatted autolink.
         /// </returns>
         public static string Link(string target)
         {
@@ -173,7 +194,8 @@ namespace Wakawaka
         /// <param name="text">The text to display.</param>
         /// <param name="target">The link destination.</param>
         /// <param name="title">The title of the link, or <c>null</c>.</param>
-        /// <returns>A new string containing a Markdown-formatted inline link.
+        /// <returns>
+        /// A new string containing a Markdown-formatted inline link.
         /// </returns>
         public static string Link(string text, string target, string title = null)
         {

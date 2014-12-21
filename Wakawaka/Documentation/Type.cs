@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 
 namespace Wakawaka.Documentation
 {
@@ -13,8 +14,10 @@ namespace Wakawaka.Documentation
         /// specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the member.</param>
-        /// <param name="member">The <see cref="XElement"/> object that 
-        /// contains the XML documenation for the member.</param>
+        /// <param name="member">
+        /// The <see cref="XElement"/> object that contains the XML 
+        /// documentation for the member.
+        /// </param>
         public Type(string id, XElement member)
             : base(id, member) { }
 
@@ -43,7 +46,7 @@ namespace Wakawaka.Documentation
         /// <returns>A string containing the name of the type.</returns>
         public override string ToString()
         {
-            return string.Format("{0} Type", ID.Name);
+            return String.Format("{0} Type", ID.Name);
         }
     }
 }

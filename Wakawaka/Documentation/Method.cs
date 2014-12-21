@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 
 namespace Wakawaka.Documentation
 {
@@ -12,8 +13,10 @@ namespace Wakawaka.Documentation
         /// the specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the method.</param>
-        /// <param name="member">The <see cref="XElement"/> object that 
-        /// contains the XML documenation for the method.</param>
+        /// <param name="member">
+        /// The <see cref="XElement"/> object that contains the XML 
+        /// documenation for the method.
+        /// </param>
         public Method(string id, XElement member)
             : base(id, member)
         {
@@ -78,8 +81,8 @@ namespace Wakawaka.Documentation
         public override string ToString()
         {
             if (IsConstructor)
-                return string.Format("{0} Constructor", ID.ClassName);
-            return string.Format("{0}.{1} Method", ID.ClassName, ID.Name);
+                return String.Format("{0} Constructor", ID.ClassName);
+            return String.Format("{0}.{1} Method", ID.ClassName, ID.Name);
         }
     }
 }

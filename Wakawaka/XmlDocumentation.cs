@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+
 using Wakawaka.Documentation;
 
 namespace Wakawaka
@@ -38,10 +39,13 @@ namespace Wakawaka
         /// Creates a new <see cref="XmlDocumentation"/> from the specified 
         /// file or URI.
         /// </summary>
-        /// <param name="path">A string containing the URI or path to the file
-        /// to load.</param>
-        /// <returns>A new <see cref="XmlDocumentation"/> object that 
-        /// represents the contents of the specified file.</returns>
+        /// <param name="path">
+        /// A string containing the URI or path to the file to load.
+        /// </param>
+        /// <returns>
+        /// A new <see cref="XmlDocumentation"/> object that represents the 
+        /// contents of the specified file.
+        /// </returns>
         public static XmlDocumentation Load(string path)
         {
             var document = XDocument.Load(path);
@@ -52,10 +56,13 @@ namespace Wakawaka
         /// Creates a new <see cref="XmlDocumentation"/> from the specified
         /// string.
         /// </summary>
-        /// <param name="content">A string containing the XML text to load.
+        /// <param name="content">
+        /// A string containing the XML text to load.
         /// </param>
-        /// <returns>A new <see cref="XmlDocumentation"/> object that 
-        /// represents the specified XML text.</returns>
+        /// <returns>
+        /// A new <see cref="XmlDocumentation"/> object that represents the 
+        /// specified XML text.
+        /// </returns>
         public static XmlDocumentation Parse(string content)
         {
             var document = XDocument.Parse(content);
@@ -66,8 +73,10 @@ namespace Wakawaka
         /// Returns a collection of <see cref="Member"/> objects in the <see 
         /// cref="XmlDocumentation"/>.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> collection of <see 
-        /// cref="Member"/> objects.</returns>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> collection of <see cref="Member"/> 
+        /// objects.
+        /// </returns>
         public IEnumerable<Member> GetMembers()
         {
             var elements = from member in document.Descendants("member")

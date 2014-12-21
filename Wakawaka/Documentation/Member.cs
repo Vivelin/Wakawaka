@@ -13,8 +13,10 @@ namespace Wakawaka.Documentation
         /// the specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the member.</param>
-        /// <param name="member">The <see cref="XElement"/> object that 
-        /// contains the XML documenation for the member.</param>
+        /// <param name="member">
+        /// The <see cref="XElement"/> object that contains the XML 
+        /// documentation for the member.
+        /// </param>
         protected Member(string id, XElement member)
         {
             ID = new ID(id);
@@ -52,11 +54,13 @@ namespace Wakawaka.Documentation
         /// Creates a new <see cref="Member"/> object for the specified <see 
         /// cref="XElement"/>.
         /// </summary>
-        /// <param name="element">The <see cref="XElement"/> object that 
-        /// contains the documentation for which to create a new <see 
-        /// cref="Member"/>.</param>
-        /// <returns>A new <see cref="Member"/> object of the type 
-        /// corresponding to the member described in <paramref name="element"/>.
+        /// <param name="element">
+        /// The <see cref="XElement"/> object that contains the documentation 
+        /// for which to create a new <see cref="Member"/>.
+        /// </param>
+        /// <returns>
+        /// A new <see cref="Member"/> object of the type corresponding to the 
+        /// member described in <paramref name="element"/>.
         /// </returns>
         public static Member Create(XElement element)
         {
