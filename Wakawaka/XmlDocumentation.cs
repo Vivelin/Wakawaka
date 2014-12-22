@@ -10,15 +10,38 @@ namespace Wakawaka
     /// Represents the XML documentation for a project.
     /// </summary>
     /// <example>
-    /// WHAT THE GOD DAMN FUCK IS YOUR MAJOR MALFUNCTION! THIS GAME IS FUCKING 
-    /// RATED M FOR MATURE! THIS ISN'T SOME FUCKING CHRISTIAN SERVER, YOU WANT 
-    /// A NO CUSSING CLUB GO TO A SERVER THAT DOESN'T ALLOW IT! THERE ARE NOT 
-    /// ENOUGH MOTHERFUCKERS TO PATROL THE SERVERS! I'M NOT GOING TO SIT ON 
-    /// SERVER AND BAN EVERYONE THAT SAYS GODDAMN, DAMN, SHIT, FUCK, CUNT, 
-    /// BITCH, MOTHERFUCKER, ASS, AND ANY OTHER VARIETIES OUT THERE.
-    /// <para>
-    /// SO YOU KNOW WHAT FUCKING DEAL WITH THIS SHIT, BITCH.
-    /// </para>
+    /// The following example shows how to use the XmlDocumentation class to 
+    /// load an XML file and print Markdown-formatted documentation for all
+    /// types to the console.
+    /// 
+    /// <code><![CDATA[using System;
+    /// using System.Linq;
+    /// 
+    /// using Wakawaka;
+    /// 
+    /// namespace Example
+    /// {
+    ///     class Program
+    ///     {
+    ///         static void Main(string[] args)
+    ///         {
+    ///             var xmlDocumentation = XmlDocumentation.Load(@"Example.XML");
+    ///             var types = from member in xmlDocumentation.GetMembers()
+    ///                         where member is Documentation.Type
+    ///                         select member;
+    ///             foreach (var member in types)
+    ///             {
+    ///                 using (var stringWriter = new System.IO.StringWriter())
+    ///                 {
+    ///                     var writer = new MarkdownTextWriter(stringWriter);
+    ///                     member.Render(writer);
+    ///                     Console.WriteLine(stringWriter.ToString());
+    ///                 }
+    ///             }
+    ///         }
+    ///     }
+    /// }
+    /// ]]></code>
     /// </example>
     public class XmlDocumentation
     {
