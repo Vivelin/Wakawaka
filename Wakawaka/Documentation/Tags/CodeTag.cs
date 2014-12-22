@@ -37,6 +37,7 @@ namespace Wakawaka.Documentation.Tags
         /// </param>
         public override void Render(MarkdownTextWriter writer)
         {
+            writer.WriteLine();
             writer.WriteCodeBlock(Value);
         }
 

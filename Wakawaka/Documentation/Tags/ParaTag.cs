@@ -39,6 +39,7 @@ namespace Wakawaka.Documentation.Tags
         public override void Render(MarkdownTextWriter writer)
         {
             writer.WriteLine();
+            writer.WriteLine();
             writer.WriteLine(Text);
         }
 
@@ -50,7 +51,7 @@ namespace Wakawaka.Documentation.Tags
         /// </returns>
         public override string ToString()
         {
-            return Environment.NewLine + Text;
+            return Text;
         }
     }
 }
