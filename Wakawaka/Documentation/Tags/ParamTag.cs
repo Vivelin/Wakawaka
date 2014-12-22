@@ -4,7 +4,7 @@ using System.Xml.Linq;
 namespace Wakawaka.Documentation.Tags
 {
     /// <summary>
-    /// Represents a &lt;param&gt; XML documentation tag.
+    /// Represents a <c>&lt;param&gt;</c> XML documentation tag.
     /// </summary>
     public class ParamTag : Tag
     {
@@ -15,6 +15,10 @@ namespace Wakawaka.Documentation.Tags
         /// <param name="element">
         /// The <see cref="XElement"/> object to represent.
         /// </param>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="element"/> does not have a <c>name</c> 
+        /// attribute.
+        /// </exception>
         public ParamTag(XElement element) : base(element)
         {
             if (element.Attribute("name") == null)
@@ -22,7 +26,8 @@ namespace Wakawaka.Documentation.Tags
         }
 
         /// <summary>
-        /// Gets the name of the parameter the &lt;param&gt; tag describes.
+        /// Gets the name of the parameter the <c>&lt;param&gt;</c> tag 
+        /// describes.
         /// </summary>
         public string Name
         {
@@ -37,8 +42,9 @@ namespace Wakawaka.Documentation.Tags
         /// </summary>
         /// <remarks>
         /// This property returns the concatenated text contents of the 
-        /// &lt;param&gt; tag; use <see cref="Tag.Render(MarkdownTextWriter)"/>
-        /// to properly render the tag's contents.
+        /// <c>&lt;param&gt;</c> tag; use <see 
+        /// cref="Tag.Render(MarkdownTextWriter)"/> to properly render the 
+        /// tag's contents.
         /// </remarks>
         public string Description
         {
@@ -46,18 +52,6 @@ namespace Wakawaka.Documentation.Tags
             {
                 return Element.Value;
             }
-        }
-
-        /// <summary>
-        /// Returns a string representation of the &lt;param&gt; tag.
-        /// </summary>
-        /// <returns>
-        /// A string containing the name and description of the &lt;param&gt; 
-        /// tag.
-        /// </returns>
-        public override string ToString()
-        {
-            return Name + ": " + base.ToString();
         }
     }
 }

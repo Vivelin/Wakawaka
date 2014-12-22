@@ -3,7 +3,7 @@
 namespace Wakawaka.Documentation.Tags
 {
     /// <summary>
-    /// Represents a &lt;c&gt; XML documentation tag.
+    /// Represents a <c>&lt;c&gt;</c> XML documentation tag.
     /// </summary>
     public class CTag : Tag
     {
@@ -30,7 +30,8 @@ namespace Wakawaka.Documentation.Tags
         }
 
         /// <summary>
-        /// Renders a Markdown-formatted representation of the &lt;c&gt; tag.
+        /// Renders a Markdown-formatted representation of the <c>&lt;c&gt;</c>
+        /// tag.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.
@@ -38,17 +39,6 @@ namespace Wakawaka.Documentation.Tags
         public override void Render(MarkdownTextWriter writer)
         {
             writer.WriteCode(Value);
-        }
-
-        /// <summary>
-        /// Returns a string representation of the &lt;c&gt; tag.
-        /// </summary>
-        /// <returns>
-        /// A string containing the text contents of the &lt;c&gt; tag.
-        /// </returns>
-        public override string ToString()
-        {
-            return Value;
         }
     }
 }

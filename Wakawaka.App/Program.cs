@@ -57,7 +57,7 @@ namespace Wakawaka.App
 
         private static string GenerateFileName(Documentation.Member member)
         {
-            var name = member.ToString() + ".md";
+            var name = member.ID.FullName + ".md";
             return Path.Combine(outputFolder, name);
         }
     }

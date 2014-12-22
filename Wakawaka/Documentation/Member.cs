@@ -91,6 +91,32 @@ namespace Wakawaka.Documentation
         /// </param>
         public virtual void Render(MarkdownTextWriter writer)
         {
+            RenderHeader(writer);
+
+            if (Remarks != null)
+            {
+                writer.WriteHeading("Remarks", 2);
+                Remarks.Render(writer);
+                writer.WriteLine();
+            }
+
+            if (Example != null)
+            {
+                writer.WriteHeading("Examples", 2);
+                Example.Render(writer);
+                writer.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// Renders a Markdown-formatted representation of the <see 
+        /// cref="Member"/>'s name and summary.
+        /// </summary>
+        /// <param name="writer">
+        /// The <see cref="MarkdownTextWriter"/> object to write to.
+        /// </param>
+        protected virtual void RenderHeader(MarkdownTextWriter writer)
+        {
             writer.WriteHeading(ToString());
             Summary.Render(writer);
             writer.WriteLine();
@@ -100,6 +126,7 @@ namespace Wakawaka.Documentation
             writer.WriteLine(ID.Namespace);
             writer.WriteLine();
         }
+
 
         /// <summary>
         /// Returns a string representation of the <see cref="Member"/>.

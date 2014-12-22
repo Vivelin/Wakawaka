@@ -26,8 +26,8 @@ namespace Wakawaka.Documentation
             if (member.Element("returns") != null)
                 ReturnValue = Tag.Create(member.Element("returns"));
 
-            var parameters = member.Elements("param");
-            Parameters = parameters.Select(x => Tag.Create(x));
+            Parameters = member.Elements("param").Select(x => Tag.Create(x));
+            Exceptions = member.Elements("exception").Select(x => Tag.Create(x));
         }
 
         /// <summary>
@@ -43,6 +43,12 @@ namespace Wakawaka.Documentation
         public IEnumerable<Tag> Parameters { get; }
 
         /// <summary>
+        /// Gets the collection of tags that are used to describe which 
+        /// exceptions can be thrown.
+        /// </summary>
+        public IEnumerable<Tag> Exceptions { get; }
+
+        /// <summary>
         /// Gets a value indicating whether the method is a constructor.
         /// </summary>
         public bool IsConstructor
@@ -51,46 +57,48 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Renders a Markdown representation of the <see cref="Method"/>.
+        /// Renders a Markdown representation of the <see cref="Method"/>'s 
+        /// name, summary and syntax.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.
         /// </param>
-        public override void Render(MarkdownTextWriter writer)
+        protected override void RenderHeader(MarkdownTextWriter writer)
         {
-            base.Render(writer);
+            base.RenderHeader(writer);
 
             if (Parameters != null && Parameters.Count() > 0)
             {
-                writer.WriteHeading("Parameters", 3);
+                writer.WriteHeading("Parameters", 2);
                 foreach (ParamTag param in Parameters)
                 {
-                    writer.WriteHeading(param.Name, 4);
+                    writer.WriteEmphasis(param.Name);
+                    writer.WriteLineBreak();
                     param.Render(writer);
+                    writer.WriteLine();
                 }
             }
 
             if (ReturnValue != null)
             {
-                writer.WriteHeading("Return Value", 3);
+                writer.WriteHeading("Return Value", 2);
                 ReturnValue.Render(writer);
                 writer.WriteLine();
             }
 
-            if (Remarks != null)
+            if (Exceptions != null && Exceptions.Count() > 0)
             {
-                writer.WriteHeading("Remarks", 2);
-                Remarks.Render(writer);
-                writer.WriteLine();
+                writer.WriteHeading("Exceptions", 2);
+                foreach (ExceptionTag exception in Exceptions)
+                {
+                    writer.Write('*');
+                    exception.CRef.Render(writer);
+                    writer.Write('*');
+                    writer.WriteLineBreak();
+                    exception.Render(writer);
+                    writer.WriteLine();
+                }
             }
-            if (Example != null)
-            {
-                writer.WriteHeading("Examples", 2);
-                Example.Render(writer);
-                writer.WriteLine();
-            }
-
-            // See Also
         }
 
         /// <summary>

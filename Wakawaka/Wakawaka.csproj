@@ -45,6 +45,7 @@
     <Compile Include="Documentation\Field.cs" />
     <Compile Include="Documentation\Tags\CodeTag.cs" />
     <Compile Include="Documentation\Tags\CTag.cs" />
+    <Compile Include="Documentation\Tags\ExceptionTag.cs" />
     <Compile Include="Documentation\Tags\ParamRefTag.cs" />
     <Compile Include="Documentation\Tags\ParamTag.cs" />
     <Compile Include="Documentation\Tags\ParaTag.cs" />

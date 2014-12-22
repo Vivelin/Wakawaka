@@ -3,7 +3,7 @@
 namespace Wakawaka.Documentation.Tags
 {
     /// <summary>
-    /// Represents the &lt;see&gt; XML documentation tag.
+    /// Represents the <c>&lt;see&gt;</c> XML documentation tag.
     /// </summary>
     public class SeeTag : Tag
     {
@@ -44,16 +44,7 @@ namespace Wakawaka.Documentation.Tags
         /// </param>
         public override void Render(MarkdownTextWriter writer)
         {
-            writer.WriteLink(CRef.FullName, CRef.FullName);
-        }
-
-        /// <summary>
-        /// Returns a string representation of the &lt;see&gt; tag.
-        /// </summary>
-        /// <returns>A string that represents the &lt;see&gt; tag.</returns>
-        public override string ToString()
-        {
-            return CRef.FullName;
+            CRef.Render(writer);
         }
     }
 }

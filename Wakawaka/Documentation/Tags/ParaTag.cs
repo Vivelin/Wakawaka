@@ -4,7 +4,7 @@ using System.Xml.Linq;
 namespace Wakawaka.Documentation.Tags
 {
     /// <summary>
-    /// Represents a &lt;para&gt; XML documentation tag.
+    /// Represents a <c>&lt;para&gt;</c> XML documentation tag.
     /// </summary>
     public class ParaTag : Tag
     {
@@ -31,7 +31,8 @@ namespace Wakawaka.Documentation.Tags
         }
 
         /// <summary>
-        /// Renders a Markdown-formatted representation of the &lt;code&gt; tag.
+        /// Renders a Markdown-formatted representation of the 
+        /// <c>&lt;code&gt;</c> tag.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.
@@ -41,17 +42,6 @@ namespace Wakawaka.Documentation.Tags
             writer.WriteLine();
             writer.WriteLine();
             writer.WriteLine(Text);
-        }
-
-        /// <summary>
-        /// Returns a string representation of the &lt;code&gt; tag.
-        /// </summary>
-        /// <returns>
-        /// A string containing the text contents of the &lt;code&gt; tag.
-        /// </returns>
-        public override string ToString()
-        {
-            return Text;
         }
     }
 }

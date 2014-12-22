@@ -199,6 +199,14 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Writes an explicit line break to the text stream.
+        /// </summary>
+        public void WriteLineBreak()
+        {
+            writer.WriteLine("  ");
+        }
+
+        /// <summary>
         /// Writes a Markdown-formatted heading to the text stream.
         /// </summary>
         /// <param name="value">

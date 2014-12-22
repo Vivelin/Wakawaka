@@ -153,6 +153,17 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Renders a Markdown-formatted representation of the code reference.
+        /// </summary>
+        /// <param name="writer">
+        /// The <see cref="MarkdownTextWriter"/> object to write to.
+        /// </param>
+        public void Render(MarkdownTextWriter writer)
+        {
+            writer.WriteLink(FullName, FullName);
+        }
+
+        /// <summary>
         /// Parses the specified ID string.
         /// </summary>
         /// <param name="identifier">The ID string to parse.</param>

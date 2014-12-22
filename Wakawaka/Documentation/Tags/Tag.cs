@@ -57,6 +57,7 @@ namespace Wakawaka.Documentation.Tags
             {
                 case "c": return new CTag(element);
                 case "code": return new CodeTag(element);
+                case "exception": return new ExceptionTag(element);
                 case "para": return new ParaTag(element);
                 case "param": return new ParamTag(element);
                 case "paramref": return new ParamRefTag(element);
@@ -104,34 +105,11 @@ namespace Wakawaka.Documentation.Tags
         /// Returns a string representation of the tag.
         /// </summary>
         /// <returns>
-        /// A string that contains the text contents of the tag.
+        /// A string that contains the XML contents of the tag.
         /// </returns>
         public override string ToString()
         {
-            var builder = new StringBuilder();
-
-            foreach (var child in Element.Nodes())
-            {
-                if (child is XElement)
-                {
-                    var tag = Create((XElement)child);
-                    builder.Append(tag.ToString());
-                }
-                else if (child is XText)
-                {
-                    var textNode = (XText)child;
-                    var text = textNode.Value;
-                    builder.Append(text.ToSingleLine());
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("Unsupported {0} node",
-                        child.GetType());
-                    builder.Append(child.ToString());
-                }
-            }
-
-            return builder.ToString().Trim();
+            return Element.ToString();
         }
 
         private void RenderChildNode(MarkdownTextWriter writer, XNode node)

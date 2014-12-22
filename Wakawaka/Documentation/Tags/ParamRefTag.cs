@@ -3,7 +3,7 @@
 namespace Wakawaka.Documentation.Tags
 {
     /// <summary>
-    /// Represents a &lt;paramref&gt; XML documentation tag.
+    /// Represents a <c>&lt;paramref&gt;</c> XML documentation tag.
     /// </summary>
     public class ParamRefTag : Tag
     {
@@ -34,17 +34,6 @@ namespace Wakawaka.Documentation.Tags
         public override void Render(MarkdownTextWriter writer)
         {
             writer.WriteEmphasis(Name);
-        }
-
-        /// <summary>
-        /// Returns a string representation of the &lt;paramref&gt; tag.
-        /// </summary>
-        /// <returns>
-        /// A string containing the name of the parameter being referred to.
-        /// </returns>
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }
