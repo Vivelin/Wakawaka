@@ -27,7 +27,7 @@ namespace Wakawaka.App
         public Wiki(string uri, string workDir)
         {
             Uri = uri;
-            WorkingDirectory = WorkingDirectory;
+            WorkingDirectory = workDir;
         }
 
         /// <summary>
