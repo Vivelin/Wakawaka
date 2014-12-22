@@ -50,10 +50,10 @@ namespace Wakawaka.Documentation
         /// supplementing the information specified with <see cref="Summary"/>.
         /// </summary>
         public Tag Remarks { get; }
-        
+
         /// <summary>
-        /// Creates a new <see cref="Member"/> object for the specified <see 
-        /// cref="XElement"/>.
+        /// Creates a new <see cref="Member"/> object for the specified 
+        /// element.
         /// </summary>
         /// <param name="element">
         /// The <see cref="XElement"/> object that contains the documentation 
@@ -63,6 +63,18 @@ namespace Wakawaka.Documentation
         /// A new <see cref="Member"/> object of the type corresponding to the 
         /// member described in <paramref name="element"/>.
         /// </returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="element"/> has no <c>name</c> parameter, or the
+        /// value of the <c>name</c> parameter is too short.
+        /// </exception>
+        /// <exception cref="Exception">
+        /// <paramref name="element"/> belongs to a <c>namespace</c>, or the
+        /// member being referenced is an error.
+        /// </exception>
+        /// <exception cref="NotImplementedException">
+        /// <paramref name="element"/> references a kind of member that is not
+        /// recognized.
+        /// </exception>
         public static Member Create(XElement element)
         {
             var name = element.Attribute("name").Value;
@@ -79,7 +91,9 @@ namespace Wakawaka.Documentation
                 case 'M': return new Method(name, element);
                 case 'E': return new Event(name, element);
                 case '!': throw new Exception(SR.NoErrorDoc);
-                default: return new Member(name, element);
+                default:
+                    throw new NotImplementedException(
+                        SR.InvalidPrefix.FormatWith(prefix));
             }
         }
 

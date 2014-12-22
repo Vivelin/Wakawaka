@@ -79,6 +79,15 @@ namespace Wakawaka.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; does not represent a recognized member type. Valid prefixes include &apos;N&apos;, &apos;T&apos;, &apos;F&apos;, &apos;P&apos;, &apos;M&apos;, &apos;E&apos; and &apos;!&apos;..
+        /// </summary>
+        internal static string InvalidPrefix {
+            get {
+                return ResourceManager.GetString("InvalidPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified element does not have a &apos;name&apos; attribute..
         /// </summary>
         internal static string MissingName {

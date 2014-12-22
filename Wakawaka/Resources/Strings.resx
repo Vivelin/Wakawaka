@@ -123,6 +123,9 @@
   <data name="HeaderOutOfRange" xml:space="preserve">
     <value>A Markdown header must be a value between 1 and 6.</value>
   </data>
+  <data name="InvalidPrefix" xml:space="preserve">
+    <value>'{0}' does not represent a recognized member type. Valid prefixes include 'N', 'T', 'F', 'P', 'M', 'E' and '!'.</value>
+  </data>
   <data name="MissingName" xml:space="preserve">
     <value>The specified element does not have a 'name' attribute.</value>
   </data>
