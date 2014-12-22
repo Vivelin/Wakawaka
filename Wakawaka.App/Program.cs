@@ -6,30 +6,20 @@ namespace Wakawaka.App
 {
     class Program
     {
-        private static string outputFolder;
-
         static void Main(string[] args)
         {
             Console.Title = "Wakawaka";
 
-            if (args.Length > 0)
+            if (args.Length > 1)
             {
                 var fileName = args[0];
-                outputFolder = args?[1] ?? Environment.CurrentDirectory;
+                var repo = args[1];
+                var uri = "https://github.com/\{repo}.wiki.git";
+                var workFolder = GetTempWorkDir(repo);
 
-                if (!Directory.Exists(outputFolder))
-                    Directory.CreateDirectory(outputFolder);
-
-                var xmlDoc = XmlDocumentation.Load(fileName);
-                var types = from member in xmlDoc.GetMembers()
-                            where member is Documentation.Member
-                            orderby member.ID.FullName ascending
-                            select member;
-
-                foreach (var member in types)
-                {
-                    RenderMember(member);
-                }
+                var wiki = new Wiki(uri, workFolder);
+                var project = new Project(fileName);
+                wiki.Publish(project);
             }
             else
             {
@@ -38,27 +28,17 @@ namespace Wakawaka.App
             }
         }
 
-        private static void RenderMember(Documentation.Member member)
+        static string GetTempWorkDir(string repo = null)
         {
-            var path = GenerateFileName(member);
-            var stream = new FileStream(path, FileMode.Create);
-            var writer = new StreamWriter(stream);
+            var path = Path.Combine(Path.GetTempPath(), "Wakawaka");
+            if (repo == null)
+                repo = Path.GetRandomFileName();
+            path = Path.Combine(path, repo);
 
-            try
-            {
-                var markdownWriter = new MarkdownTextWriter(writer);
-                member.Render(markdownWriter);
-            }
-            finally
-            {
-                writer.Close();
-            }
-        }
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-        private static string GenerateFileName(Documentation.Member member)
-        {
-            var name = member.ID.FullName + ".md";
-            return Path.Combine(outputFolder, name);
+            return Path.GetFullPath(path);
         }
     }
 }
