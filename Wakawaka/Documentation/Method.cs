@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Wakawaka.Documentation.Tags;
 
@@ -23,13 +25,22 @@ namespace Wakawaka.Documentation
         {
             if (member.Element("returns") != null)
                 ReturnValue = Tag.Create(member.Element("returns"));
+
+            var parameters = member.Elements("param");
+            Parameters = parameters.Select(x => Tag.Create(x));
         }
 
         /// <summary>
-        /// Gets a string that is used to describe the return value of the
+        /// Gets the tag that is used to describe the return value of the
         /// method.
         /// </summary>
         public Tag ReturnValue { get; }
+
+        /// <summary>
+        /// Gets the collection of tags that are used to describe the 
+        /// parameters for the method.
+        /// </summary>
+        public IEnumerable<Tag> Parameters { get; }
 
         /// <summary>
         /// Gets a value indicating whether the method is a constructor.
@@ -49,14 +60,22 @@ namespace Wakawaka.Documentation
         {
             base.Render(writer);
 
+            if (Parameters != null && Parameters.Count() > 0)
+            {
+                writer.WriteHeading("Parameters", 3);
+                foreach (ParamTag param in Parameters)
+                {
+                    writer.WriteHeading(param.Name, 4);
+                    param.Render(writer);
+                }
+            }
+
             if (ReturnValue != null)
             {
                 writer.WriteHeading("Return Value", 3);
                 ReturnValue.Render(writer);
                 writer.WriteLine();
             }
-
-            // Parameters
 
             if (Remarks != null)
             {

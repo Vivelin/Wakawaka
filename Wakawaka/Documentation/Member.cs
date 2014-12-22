@@ -94,6 +94,11 @@ namespace Wakawaka.Documentation
             writer.WriteHeading(ToString());
             Summary.Render(writer);
             writer.WriteLine();
+
+            writer.WriteStrong("Namespace:");
+            writer.Write(' ');
+            writer.WriteLine(ID.Namespace);
+            writer.WriteLine();
         }
 
         /// <summary>

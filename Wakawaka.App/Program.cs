@@ -22,7 +22,7 @@ namespace Wakawaka.App
 
                 var xmlDoc = XmlDocumentation.Load(fileName);
                 var types = from member in xmlDoc.GetMembers()
-                            where member is Documentation.Type
+                            where member is Documentation.Member
                             orderby member.ID.FullName ascending
                             select member;
 
@@ -41,7 +41,7 @@ namespace Wakawaka.App
         private static void RenderMember(Documentation.Member member)
         {
             var path = GenerateFileName(member);
-            var stream = new FileStream(path, FileMode.OpenOrCreate);
+            var stream = new FileStream(path, FileMode.Create);
             var writer = new StreamWriter(stream);
 
             try
@@ -57,7 +57,7 @@ namespace Wakawaka.App
 
         private static string GenerateFileName(Documentation.Member member)
         {
-            var name = member.ID.FullName + ".md";
+            var name = member.ToString() + ".md";
             return Path.Combine(outputFolder, name);
         }
     }

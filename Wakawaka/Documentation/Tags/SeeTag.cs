@@ -44,7 +44,7 @@ namespace Wakawaka.Documentation.Tags
         /// </param>
         public override void Render(MarkdownTextWriter writer)
         {
-            writer.WriteLink(CRef.FullName);
+            writer.WriteLink(CRef.FullName, CRef.FullName);
         }
 
         /// <summary>

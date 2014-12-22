@@ -96,6 +96,46 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Encodes the specified string as HTML.
+        /// </summary>
+        /// <param name="value">The string to encode.</param>
+        /// <returns>A string with special HTML entities escaped.</returns>
+        /// <remarks>
+        /// This function replaces only the characters &quot;, &amp; &lt; and 
+        /// &gt;.
+        /// </remarks>
+        public static string Encode(string value)
+        {
+            var stringBuilder = new StringBuilder(value.Length);
+            var i = 0;
+            var c = '\0';
+            while (i < value.Length)
+            {
+                c = value[i++];
+
+                switch (c)
+                {
+                    case '"':
+                        stringBuilder.Append("&quot;");
+                        break;
+                    case '&':
+                        stringBuilder.Append("&amp;");
+                        break;
+                    case '<':
+                        stringBuilder.Append("&lt;");
+                        break;
+                    case '>':
+                        stringBuilder.Append("&gt;");
+                        break;
+                    default:
+                        stringBuilder.Append(c);
+                        break;
+                }
+            }
+            return stringBuilder.ToString();
+        }
+
+        /// <summary>
         /// Closes the document being written.
         /// </summary>
         public override void Close()
@@ -127,6 +167,36 @@ namespace Wakawaka
             writer.Write(value);
         }
         #endregion
+
+        /// <summary>
+        /// Writes a string to the text stream with special characters replaced
+        /// by their corresponding HTML entities.
+        /// </summary>
+        /// <param name="value">The string to write to the text stream.</param>
+        /// <seealso cref="Encode(string)"/>
+        public override void Write(string value)
+        {
+            value = Encode(value);
+            writer.Write(value);
+        }
+
+        /// <summary>
+        /// Writes a string to the text stream.
+        /// </summary>
+        /// <param name="value">The string to write to the text stream.</param>
+        public void WriteRaw(string value)
+        {
+            writer.Write(value);
+        }
+
+        /// <summary>
+        /// Writes a string followed by a line terminator to the text stream.
+        /// </summary>
+        /// <param name="value">The string to write to the text stream.</param>
+        public void WriteLineRaw(string value)
+        {
+            writer.WriteLine(value);
+        }
 
         /// <summary>
         /// Writes a Markdown-formatted heading to the text stream.
@@ -229,13 +299,13 @@ namespace Wakawaka
             if (value.Contains("`") && !value.Contains("``"))
             {
                 Write("``");
-                Write(value);
+                WriteRaw(value);
                 Write("``");
             }
             else
             {
                 Write('`');
-                Write(value);
+                WriteRaw(value);
                 Write('`');
             }
         }
@@ -249,7 +319,7 @@ namespace Wakawaka
         public void WriteCodeBlock(string value)
         {
             WriteLine(CodeBlockFence);
-            WriteLine(value);
+            WriteLineRaw(value);
             WriteLine(CodeBlockFence);
         }
 
@@ -265,6 +335,19 @@ namespace Wakawaka
             Write('*');
             Write(value);
             Write('*');
+        }
+
+        /// <summary>
+        /// Writes a text with strong emphasis to the text stream.
+        /// </summary>
+        /// <param name="value">
+        /// The text to format and write to the text stream.
+        /// </param>
+        public void WriteStrong(string value)
+        {
+            Write("**");
+            Write(value);
+            Write("**");
         }
 
         /// <summary>

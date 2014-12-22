@@ -58,6 +58,7 @@ namespace Wakawaka.Documentation.Tags
                 case "c": return new CTag(element);
                 case "code": return new CodeTag(element);
                 case "para": return new ParaTag(element);
+                case "param": return new ParamTag(element);
                 case "paramref": return new ParamRefTag(element);
                 case "see": return new SeeTag(element);
                 default: return new Tag(element);
@@ -86,7 +87,7 @@ namespace Wakawaka.Documentation.Tags
                     RenderChildNode(interceptor, first);
 
                     var interceptedString = stringWriter.ToString();
-                    writer.Write(interceptedString.TrimStart());
+                    writer.WriteRaw(interceptedString.TrimStart());
                 }
             }
 
