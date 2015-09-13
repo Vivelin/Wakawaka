@@ -275,7 +275,7 @@ namespace Wakawaka
         /// </param>
         public void WriteHeading(string value)
         {
-            WriteHeading(value);
+            WriteHeading(value, 1);
         }
 
         /// <summary>

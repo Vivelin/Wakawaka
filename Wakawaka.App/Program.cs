@@ -29,7 +29,12 @@ namespace Wakawaka.App
                 var uri = $"https://github.com/{repo}.wiki.git";
                 var workFolder = GetTempWorkDir(repo);
 
-                var wiki = new Wiki(uri, workFolder);
+                var wiki = new Wiki(uri, workFolder, new WikiSettings
+                {
+                    FullName = "Ruben Verdoes",
+                    EmailAddress = "horsedrowner@gmail.com"
+                });
+
                 var project = new Project(fileName);
                 wiki.Publish(project);
             }

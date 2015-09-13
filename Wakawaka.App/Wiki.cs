@@ -69,13 +69,19 @@ namespace Wakawaka.App
         /// </param>
         public void Publish(Project project)
         {
-            var path = Repository.Clone(Uri, WorkingDirectory, Settings.GetOptions());
+            var options = Settings.GetOptions();
+            var author = Settings.GetSignature();
+            var path = Repository.Clone(Uri, WorkingDirectory, options);
+
             using (var repo = new Repository(path))
             {
                 var pages = project.GenerateDocumentation(WorkingDirectory);
                 repo.Stage(pages);
 
                 var message = "Wakawaka wiki update";
+                repo.Commit(message, author);
+
+                repo.Network.Push(repo.Head);
             }
         }
     }
