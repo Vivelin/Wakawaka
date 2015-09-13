@@ -7,18 +7,18 @@ namespace Wakawaka.Documentation
     /// <summary>
     /// Represents the XML documentation for a single member.
     /// </summary>
-    public class Member
+    public class MemberDocumentation
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Member"/> class with
-        /// the specified ID string and XML documentation.
+        /// Initializes a new instance of the <see cref="MemberDocumentation"/>
+        /// class with the specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the member.</param>
         /// <param name="member">
         /// The <see cref="XElement"/> object that contains the XML
         /// documentation for the member.
         /// </param>
-        protected Member(string id, XElement member)
+        protected MemberDocumentation(string id, XElement member)
         {
             ID = new ID(id);
             if (member.Element("summary") != null)
@@ -36,7 +36,8 @@ namespace Wakawaka.Documentation
         public Tag Example { get; }
 
         /// <summary>
-        /// Gets the ID string that identifies the <see cref="Member"/>.
+        /// Gets the ID string that identifies the <see
+        /// cref="MemberDocumentation"/>.
         /// </summary>
         public ID ID { get; protected set; }
 
@@ -52,15 +53,16 @@ namespace Wakawaka.Documentation
         public Tag Summary { get; }
 
         /// <summary>
-        /// Creates a new <see cref="Member"/> object for the specified element.
+        /// Creates a new <see cref="MemberDocumentation"/> object for the
+        /// specified element.
         /// </summary>
         /// <param name="element">
         /// The <see cref="XElement"/> object that contains the documentation
-        /// for which to create a new <see cref="Member"/>.
+        /// for which to create a new <see cref="MemberDocumentation"/>.
         /// </param>
         /// <returns>
-        /// A new <see cref="Member"/> object of the type corresponding to the
-        /// member described in <paramref name="element"/>.
+        /// A new <see cref="MemberDocumentation"/> object of the type
+        /// corresponding to the member described in <paramref name="element"/>.
         /// </returns>
         /// <exception cref="ArgumentException">
         /// <paramref name="element"/> has no <c>name</c> parameter, or the
@@ -74,30 +76,31 @@ namespace Wakawaka.Documentation
         /// <paramref name="element"/> references a kind of member that is not
         /// recognized.
         /// </exception>
-        public static Member Create(XElement element)
+        public static MemberDocumentation Create(XElement element)
         {
             var name = element.Attribute("name").Value;
-            if (name == null) throw new ArgumentException(SR.MissingName);
-            if (name.Length < 3) throw new ArgumentException(SR.NameTooShort);
+            if (name == null) throw new ArgumentException(Strings.MissingName);
+            if (name.Length < 3) throw new ArgumentException(Strings.NameTooShort);
 
             var prefix = name[0];
             switch (prefix)
             {
-                case 'N': throw new Exception(SR.NoNamespaceDoc);
-                case 'T': return new Type(name, element);
-                case 'F': return new Field(name, element);
-                case 'P': return new Property(name, element);
-                case 'M': return new Method(name, element);
-                case 'E': return new Event(name, element);
-                case '!': throw new Exception(SR.NoErrorDoc);
+                case 'N': throw new InvalidOperationException(Strings.NoNamespaceDoc);
+                case 'T': return new TypeDocumentation(name, element);
+                case 'F': return new FieldDocumentation(name, element);
+                case 'P': return new PropertyDocumentation(name, element);
+                case 'M': return new MethodDocumentation(name, element);
+                case 'E': return new EventDocumentation(name, element);
+                case '!': throw new InvalidOperationException(Strings.NoErrorDoc);
                 default:
                     throw new NotImplementedException(
-                        SR.InvalidPrefix.FormatWith(prefix));
+                        Strings.InvalidPrefix.FormatWith(prefix));
             }
         }
 
         /// <summary>
-        /// Renders a Markdown representation of the <see cref="Member"/>.
+        /// Renders a Markdown representation of the <see
+        /// cref="MemberDocumentation"/>.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.
@@ -122,7 +125,8 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Returns a string representation of the <see cref="Member"/>.
+        /// Returns a string representation of the <see
+        /// cref="MemberDocumentation"/>.
         /// </summary>
         /// <returns>A string containing the ID string.</returns>
         public override string ToString()
@@ -132,7 +136,7 @@ namespace Wakawaka.Documentation
 
         /// <summary>
         /// Renders a Markdown-formatted representation of the <see
-        /// cref="Member"/>'s name and summary.
+        /// cref="MemberDocumentation"/>'s name and summary.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.

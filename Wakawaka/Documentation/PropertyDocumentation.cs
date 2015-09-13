@@ -8,20 +8,21 @@ using Wakawaka.Documentation.Tags;
 namespace Wakawaka.Documentation
 {
     /// <summary>
-    /// Represents the XML documentation for an event.
+    /// Represents the XML documentation for a property.
     /// </summary>
-    public class Event : Member
+    public class PropertyDocumentation : MemberDocumentation
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Event"/> class with the
-        /// specified ID string and XML documentation.
+        /// Initializes a new instance of the <see
+        /// cref="PropertyDocumentation"/> class with the specified ID string
+        /// and XML documentation.
         /// </summary>
-        /// <param name="id">The ID string that idenfities the event.</param>
+        /// <param name="id">The ID string that idenfities the property.</param>
         /// <param name="member">
         /// The <see cref="XElement"/> object that contains the XML
-        /// documentation for the event.
+        /// documentation for the property.
         /// </param>
-        public Event(string id, XElement member)
+        public PropertyDocumentation(string id, XElement member)
             : base(id, member)
         {
             Exceptions = member.Elements("exception").Select(x => Tag.Create(x));
@@ -34,17 +35,18 @@ namespace Wakawaka.Documentation
         public IEnumerable<Tag> Exceptions { get; }
 
         /// <summary>
-        /// Returns a string representation of the <see cref="Event"/>.
+        /// Returns a string representation of the <see
+        /// cref="PropertyDocumentation"/>.
         /// </summary>
-        /// <returns>A string containing the name of the event.</returns>
+        /// <returns>A string containing the name of the property.</returns>
         public override string ToString()
         {
-            return String.Format("{0}.{1} Event", ID.ClassName, ID.Name);
+            return String.Format("{0}.{1} Property", ID.ClassName, ID.Name);
         }
 
         /// <summary>
         /// Renders a Markdown-formatted representation of the <see
-        /// cref="Event"/>'s name and summary.
+        /// cref="PropertyDocumentation"/>'s name and summary.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.

@@ -9,18 +9,18 @@ namespace Wakawaka.Documentation
     /// <summary>
     /// Represents the XML documentation for a method.
     /// </summary>
-    public class Method : Member
+    public class MethodDocumentation : MemberDocumentation
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Method"/> class with
-        /// the specified ID string and XML documentation.
+        /// Initializes a new instance of the <see cref="MethodDocumentation"/>
+        /// class with the specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the method.</param>
         /// <param name="member">
         /// The <see cref="XElement"/> object that contains the XML documenation
         /// for the method.
         /// </param>
-        public Method(string id, XElement member)
+        public MethodDocumentation(string id, XElement member)
             : base(id, member)
         {
             if (member.Element("returns") != null)
@@ -57,7 +57,8 @@ namespace Wakawaka.Documentation
         public Tag ReturnValue { get; }
 
         /// <summary>
-        /// Returns a string representation of the <see cref="Method"/>.
+        /// Returns a string representation of the <see
+        /// cref="MethodDocumentation"/>.
         /// </summary>
         /// <returns>A string containing the name of the method.</returns>
         public override string ToString()
@@ -68,8 +69,8 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Renders a Markdown representation of the <see cref="Method"/>'s
-        /// name, summary and syntax.
+        /// Renders a Markdown representation of the <see
+        /// cref="MethodDocumentation"/>'s name, summary and syntax.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.

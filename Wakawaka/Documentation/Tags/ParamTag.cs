@@ -22,7 +22,7 @@ namespace Wakawaka.Documentation.Tags
         public ParamTag(XElement element) : base(element)
         {
             if (element.Attribute("name") == null)
-                throw new ArgumentException(SR.MissingName);
+                throw new ArgumentException(Strings.MissingName);
         }
 
         /// <summary>

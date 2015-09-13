@@ -12,10 +12,10 @@ namespace Wakawaka
         /// <summary>
         /// A regular expression that parses ID strings.
         /// </summary>
-        protected readonly Regex parser =
+        private readonly Regex Parser =
             new Regex(@"^(?<P>[NTFPME!]):(?<N>(?:[^*@^|![(\s]+))(?<E>.*)$");
 
-        private string identifier;
+        private string Identifier;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ID"/> class for the
@@ -26,8 +26,8 @@ namespace Wakawaka
         {
             if (cref == null) throw new ArgumentNullException("cref");
 
-            identifier = cref.Value;
-            Parse(identifier);
+            Identifier = cref.Value;
+            Parse(Identifier);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Wakawaka
         {
             if (identifier == null) throw new ArgumentNullException("identifier");
 
-            this.identifier = identifier;
+            this.Identifier = identifier;
             Parse(identifier);
         }
 
@@ -48,6 +48,11 @@ namespace Wakawaka
         /// </summary>
         public enum MemberType
         {
+            /// <summary>
+            /// Indicates a lack of a prefix.
+            /// </summary>
+            None = '\0',
+
             /// <summary>
             /// Indicates a namespace. You cannot add documentation comments to
             /// a namespace, but you can make cref references to them, where
@@ -161,7 +166,7 @@ namespace Wakawaka
         /// </returns>
         public override string ToString()
         {
-            return identifier;
+            return Identifier;
         }
 
         /// <summary>
@@ -170,7 +175,7 @@ namespace Wakawaka
         /// <param name="identifier">The ID string to parse.</param>
         protected void Parse(string identifier)
         {
-            var match = parser.Match(identifier);
+            var match = Parser.Match(identifier);
             if (match.Success)
             {
                 var prefix = match.Groups["P"].Value[0];

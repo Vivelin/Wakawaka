@@ -61,6 +61,23 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Gets a collection of <see cref="MemberDocumentation"/> objects in
+        /// the <see cref="XmlDocumentation"/>.
+        /// </summary>
+        public IEnumerable<MemberDocumentation> Members
+        {
+            get
+            {
+                var elements = from member in document.Descendants("member")
+                               select member;
+                foreach (var element in elements)
+                {
+                    yield return MemberDocumentation.Create(element);
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a new <see cref="XmlDocumentation"/> from the specified file
         /// or URI.
         /// </summary>
@@ -92,24 +109,6 @@ namespace Wakawaka
         {
             var document = XDocument.Parse(content);
             return new XmlDocumentation(document);
-        }
-
-        /// <summary>
-        /// Returns a collection of <see cref="Member"/> objects in the <see
-        /// cref="XmlDocumentation"/>.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="IEnumerable{T}"/> collection of <see cref="Member"/>
-        /// objects.
-        /// </returns>
-        public IEnumerable<Member> GetMembers()
-        {
-            var elements = from member in document.Descendants("member")
-                           select member;
-            foreach (var element in elements)
-            {
-                yield return Member.Create(element);
-            }
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Wakawaka.App
             {
                 var fileName = args[0];
                 var repo = args[1];
-                var uri = "https://github.com/\{repo}.wiki.git";
+                var uri = $"https://github.com/{repo}.wiki.git";
                 var workFolder = GetTempWorkDir(repo);
 
                 var wiki = new Wiki(uri, workFolder);

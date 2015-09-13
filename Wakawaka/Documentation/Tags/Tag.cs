@@ -111,7 +111,7 @@ namespace Wakawaka.Documentation.Tags
             return Element.ToString();
         }
 
-        private void RenderChildNode(MarkdownTextWriter writer, XNode node)
+        private static void RenderChildNode(MarkdownTextWriter writer, XNode node)
         {
             if (node is XElement)
             {

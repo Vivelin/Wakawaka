@@ -22,6 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <DocumentationFile>bin\Debug\Wakawaka.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Documentation\Event.cs" />
-    <Compile Include="Documentation\Field.cs" />
+    <Compile Include="Documentation\EventDocumentation.cs" />
+    <Compile Include="Documentation\FieldDocumentation.cs" />
     <Compile Include="Documentation\Tags\CodeTag.cs" />
     <Compile Include="Documentation\Tags\CTag.cs" />
     <Compile Include="Documentation\Tags\ExceptionTag.cs" />
@@ -52,24 +53,23 @@
     <Compile Include="Documentation\Tags\SeeTag.cs" />
     <Compile Include="Documentation\Tags\Tag.cs" />
     <Compile Include="ID.cs" />
-    <Compile Include="Documentation\Member.cs" />
-    <Compile Include="Documentation\Method.cs" />
-    <Compile Include="Documentation\Property.cs" />
+    <Compile Include="Documentation\MemberDocumentation.cs" />
+    <Compile Include="Documentation\MethodDocumentation.cs" />
+    <Compile Include="Documentation\PropertyDocumentation.cs" />
     <Compile Include="MarkdownTextWriter.cs" />
     <Compile Include="MarkdownTextWriterSettings.cs" />
-    <Compile Include="Resources\Strings.Designer.cs">
+    <Compile Include="Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="SR.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="Documentation\Type.cs" />
+    <Compile Include="Documentation\TypeDocumentation.cs" />
     <Compile Include="XmlDocumentation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Strings.resx">
+    <EmbeddedResource Include="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>

@@ -7,23 +7,24 @@ namespace Wakawaka.Documentation
     /// Represents the XML documentation for a type (e.g. class, interface,
     /// structure, enum or delegate).
     /// </summary>
-    public class Type : Member
+    public class TypeDocumentation : MemberDocumentation
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Type"/> class with the
-        /// specified ID string and XML documentation.
+        /// Initializes a new instance of the <see cref="TypeDocumentation"/>
+        /// class with the specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the member.</param>
         /// <param name="member">
         /// The <see cref="XElement"/> object that contains the XML
         /// documentation for the member.
         /// </param>
-        public Type(string id, XElement member)
+        public TypeDocumentation(string id, XElement member)
             : base(id, member)
         { }
 
         /// <summary>
-        /// Renders a Markdown representation of the <see cref="Type"/>.
+        /// Renders a Markdown representation of the <see
+        /// cref="TypeDocumentation"/>.
         /// </summary>
         /// <param name="writer">
         /// The <see cref="MarkdownTextWriter"/> object to write to.
@@ -41,7 +42,8 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Returns a string representation of the <see cref="Type"/>.
+        /// Returns a string representation of the <see
+        /// cref="TypeDocumentation"/>.
         /// </summary>
         /// <returns>A string containing the name of the type.</returns>
         public override string ToString()

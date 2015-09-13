@@ -45,7 +45,7 @@ namespace Wakawaka.App
             if (!Directory.Exists(outputFolder))
                 Directory.CreateDirectory(outputFolder);
 
-            var members = from member in Documentation.GetMembers()
+            var members = from member in Documentation.Members
                           orderby member.ID.FullName ascending
                           select member;
             foreach (var member in members)
@@ -67,7 +67,7 @@ namespace Wakawaka.App
             }
         }
 
-        private void RenderPage(Member member, TextWriter writer)
+        private void RenderPage(MemberDocumentation member, TextWriter writer)
         {
             var markdownWriter = new MarkdownTextWriter(writer);
             member.Render(markdownWriter);

@@ -182,6 +182,17 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Writes a first level ATX-style header to the text stream.
+        /// </summary>
+        /// <param name="value">
+        /// The text to format as heading and write to the text stream.
+        /// </param>
+        public void WriteAtxHeader(string value)
+        {
+            WriteAtxHeader(value, 1);
+        }
+
+        /// <summary>
         /// Writes an ATX-style header to the text stream.
         /// </summary>
         /// <param name="value">
@@ -193,12 +204,12 @@ namespace Wakawaka
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="level"/> is less than 1 or greater than 6.
         /// </exception>
-        public void WriteAtxHeader(string value, int level = 1)
+        public void WriteAtxHeader(string value, int level)
         {
             if (level < 1 || level > 6)
             {
                 throw new ArgumentOutOfRangeException(nameof(level),
-                    SR.AtxHeaderOutOfRange);
+                    Strings.AtxHeaderOutOfRange);
             }
 
             for (var i = level; i > 0; i--)
@@ -257,6 +268,17 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Writes a fist level Markdown-formatted heading to the text stream.
+        /// </summary>
+        /// <param name="value">
+        /// The text to format and write to the text stream.
+        /// </param>
+        public void WriteHeading(string value)
+        {
+            WriteHeading(value);
+        }
+
+        /// <summary>
         /// Writes a Markdown-formatted heading to the text stream.
         /// </summary>
         /// <param name="value">
@@ -273,7 +295,7 @@ namespace Wakawaka
         /// header. For level 3 to 6 headers, the heading is formatted as an ATX
         /// header.
         /// </remarks>
-        public void WriteHeading(string value, int level = 1)
+        public void WriteHeading(string value, int level)
         {
             if (level >= 1 && level <= 2)
             {
@@ -286,7 +308,7 @@ namespace Wakawaka
             else
             {
                 throw new ArgumentOutOfRangeException(nameof(level),
-                    SR.HeaderOutOfRange);
+                    Strings.HeaderOutOfRange);
             }
         }
 
@@ -321,18 +343,27 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Write a link with a description and an optional title to the text
-        /// stream.
+        /// Writes a link with the specified display text to the text stream.
         /// </summary>
-        /// <param name="value">The text to display for the link.</param>
         /// <param name="destination">The destination of the link.</param>
+        /// <param name="text">The text to display for the link.</param>
+        public void WriteLink(string destination, string text)
+        {
+            WriteLink(destination, text, null);
+        }
+
+        /// <summary>
+        /// Writes a link with a description and a title to the text stream.
+        /// </summary>
+        /// <param name="destination">The destination of the link.</param>
+        /// <param name="text">The text to display for the link.</param>
         /// <param name="title">The title of the link, or <c>null</c>.</param>
-        public void WriteLink(string value, string destination, string title = null)
+        public void WriteLink(string destination, string text, string title)
         {
             var enclose = destination.Contains(" ");
 
             Write('[');
-            Write(value.Replace("]", "\\]"));
+            Write(text.Replace("]", "\\]"));
             Write(']');
 
             Write('(');
@@ -360,6 +391,17 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Writes a first level Setext-style header to the text stream.
+        /// </summary>
+        /// <param name="value">
+        /// The text to format as heading and write to the text stream.
+        /// </param>
+        public void WriteSetextHeader(string value)
+        {
+            WriteSetextHeader(value, 1);
+        }
+
+        /// <summary>
         /// Writes a Setext-style header to the text stream.
         /// </summary>
         /// <param name="value">
@@ -371,12 +413,12 @@ namespace Wakawaka
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="level"/> is less than 1 or greater than 2.
         /// </exception>
-        public void WriteSetextHeader(string value, int level = 1)
+        public void WriteSetextHeader(string value, int level)
         {
             if (level < 1 || level > 2)
             {
                 throw new ArgumentOutOfRangeException(nameof(level),
-                    SR.SetextHeaderOutOfRange);
+                    Strings.SetextHeaderOutOfRange);
             }
 
             char lineChar = '=';
