@@ -13,12 +13,12 @@ namespace Wakawaka.Documentation
     public class Event : Member
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Event"/> class with
-        /// the specified ID string and XML documentation.
+        /// Initializes a new instance of the <see cref="Event"/> class with the
+        /// specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the event.</param>
         /// <param name="member">
-        /// The <see cref="XElement"/> object that contains the XML 
+        /// The <see cref="XElement"/> object that contains the XML
         /// documentation for the event.
         /// </param>
         public Event(string id, XElement member)
@@ -28,13 +28,22 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Gets the collection of tags that are used to describe which 
+        /// Gets the collection of tags that are used to describe which
         /// exceptions can be thrown.
         /// </summary>
         public IEnumerable<Tag> Exceptions { get; }
 
         /// <summary>
-        /// Renders a Markdown-formatted representation of the <see 
+        /// Returns a string representation of the <see cref="Event"/>.
+        /// </summary>
+        /// <returns>A string containing the name of the event.</returns>
+        public override string ToString()
+        {
+            return String.Format("{0}.{1} Event", ID.ClassName, ID.Name);
+        }
+
+        /// <summary>
+        /// Renders a Markdown-formatted representation of the <see
         /// cref="Event"/>'s name and summary.
         /// </summary>
         /// <param name="writer">
@@ -57,15 +66,6 @@ namespace Wakawaka.Documentation
                     writer.WriteLine();
                 }
             }
-        }
-
-        /// <summary>
-        /// Returns a string representation of the <see cref="Event"/>.
-        /// </summary>
-        /// <returns>A string containing the name of the event.</returns>
-        public override string ToString()
-        {
-            return String.Format("{0}.{1} Event", ID.ClassName, ID.Name);
         }
     }
 }

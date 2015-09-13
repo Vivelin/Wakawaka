@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LibGit2Sharp;
 
 namespace Wakawaka.App
@@ -10,7 +6,7 @@ namespace Wakawaka.App
     /// <summary>
     /// Specifies authentication settings for editing a GitHub Wiki.
     /// </summary>
-    class WikiSettings
+    internal class WikiSettings
     {
         /// <summary>
         /// Represents a <see cref="WikiSettings"/> object with all values set
@@ -26,14 +22,9 @@ namespace Wakawaka.App
         }
 
         /// <summary>
-        /// Gets or sets the name of the user to authenticate with.
+        /// Gets or sets the email address to be displayed with commit messages.
         /// </summary>
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password of the user to authenticate with.
-        /// </summary>
-        public string Password { get; set; }
+        public string EmailAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the full name to be displayed with commit messages.
@@ -41,10 +32,14 @@ namespace Wakawaka.App
         public string FullName { get; set; }
 
         /// <summary>
-        /// Gets or sets the email address to be displayed with commit 
-        /// messages.
+        /// Gets or sets the password of the user to authenticate with.
         /// </summary>
-        public string EmailAddress { get; set; }
+        public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the user to authenticate with.
+        /// </summary>
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets a <see cref="CloneOptions"/> object to authenticate with, or
@@ -80,7 +75,7 @@ namespace Wakawaka.App
             if (EmailAddress == null)
                 throw new InvalidOperationException();
 
-            return new Signature(FullName ?? EmailAddress, EmailAddress, 
+            return new Signature(FullName ?? EmailAddress, EmailAddress,
                 DateTimeOffset.Now);
         }
     }

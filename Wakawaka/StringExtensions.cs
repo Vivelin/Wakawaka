@@ -10,51 +10,15 @@ namespace Wakawaka
     public static class StringExtensions
     {
         /// <summary>
-        /// Returns a new string where runs of white-space characters are 
-        /// replaced by a single character.
+        /// Returns a new string with newlines and runs of white-space
+        /// characters removed, and white-space at the beginning and end of the
+        /// string removed.
         /// </summary>
-        /// <param name="value">The string to squeeze.</param>
-        /// <returns>
-        /// A new string where runs of white-space characters are replaced with
-        /// a single character.
-        /// </returns>
-        public static string Squeeze(this string value)
+        /// <param name="value">The string to compact.</param>
+        /// <returns>The compacted string.</returns>
+        public static string Compact(this string value)
         {
-            return Squeeze(value, ' ', '\t', '\n', '\r');
-        }
-
-        /// <summary>
-        /// Returns a new string where runs of the same character that occur in
-        /// <paramref name="chars"/> are replaced by a single character.
-        /// </summary>
-        /// <param name="value">The string to squeeze.</param>
-        /// <param name="chars">
-        /// A set of characters of which runs are replaced by a single 
-        /// character. Specify <c>null</c> to remove all runs of identical 
-        /// characters.
-        /// </param>
-        /// <returns>
-        /// A new string where runs of the same character are replaced with a 
-        /// single character.
-        /// </returns>
-        public static string Squeeze(this string value, params char[] chars)
-        {
-            if (value == null) return null;
-            if (value.Length == 0) return string.Empty;
-
-            var builder = new StringBuilder(value.Length);
-
-            builder.Append(value[0]);
-            for (int i = 1; i < value.Length; i++)
-            {
-                var c = value[i];
-                var inSet = (chars == null || chars.Contains(c));
-
-                if (c != value[i - 1] || !inSet)
-                    builder.Append(c);
-            }
-
-            return builder.ToString();
+            return value.Trim().Delete('\n', '\r').Squeeze();
         }
 
         /// <summary>
@@ -84,20 +48,27 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Returns a new string with newlines and runs of white-space
-        /// characters removed, and white-space at the beginning and end of the
-        /// string removed.
+        /// Replaces one or more format items in the string with a string
+        /// representation of the corresponding object.
         /// </summary>
-        /// <param name="value">The string to compact.</param>
-        /// <returns>The compacted string.</returns>
-        public static string Compact(this string value)
+        /// <param name="format">A composite format string.</param>
+        /// <param name="args">
+        /// An array containing zero or more objects to format.
+        /// </param>
+        /// <returns>
+        /// A copy of the <paramref name="format"/> string with the format items
+        /// replaced with the values of the corresponding objects.
+        /// </returns>
+        public static string FormatWith(this string format, params object[] args)
         {
-            return value.Trim().Delete('\n', '\r').Squeeze();
+            if (args == null)
+                return format;
+            return String.Format(format, args);
         }
 
         /// <summary>
-        /// Returns a new string array, calling <see 
-        /// cref="string.Replace(string,string)"/> for each element using the 
+        /// Returns a new string array, calling <see
+        /// cref="string.Replace(string,string)"/> for each element using the
         /// specified parameters.
         /// </summary>
         /// <param name="value">
@@ -105,11 +76,11 @@ namespace Wakawaka
         /// </param>
         /// <param name="oldValue">The string to be replaced.</param>
         /// <param name="newValue">
-        /// The string to replace all occurrences of <paramref 
+        /// The string to replace all occurrences of <paramref
         /// name="oldValue"/>.
         /// </param>
         /// <returns>
-        /// A new string array where all occurrences of <paramref 
+        /// A new string array where all occurrences of <paramref
         /// name="oldValue"/> in elements have been replaced.
         /// </returns>
         public static string[] Replace(this string[] value, string oldValue,
@@ -126,26 +97,55 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Replaces one or more format items in the string with a string 
-        /// representation of the corresponding object.
+        /// Returns a new string where runs of white-space characters are
+        /// replaced by a single character.
         /// </summary>
-        /// <param name="format">A composite format string.</param>
-        /// <param name="args">
-        /// An array containing zero or more objects to format.
-        /// </param>
+        /// <param name="value">The string to squeeze.</param>
         /// <returns>
-        /// A copy of the <paramref name="format"/> string with the format 
-        /// items replaced with the values of the corresponding objects.
+        /// A new string where runs of white-space characters are replaced with
+        /// a single character.
         /// </returns>
-        public static string FormatWith(this string format, params object[] args)
+        public static string Squeeze(this string value)
         {
-            if (args == null)
-                return format;
-            return String.Format(format, args);
+            return Squeeze(value, ' ', '\t', '\n', '\r');
         }
 
         /// <summary>
-        /// Removes line endings from the string and replaces multiple 
+        /// Returns a new string where runs of the same character that occur in
+        /// <paramref name="chars"/> are replaced by a single character.
+        /// </summary>
+        /// <param name="value">The string to squeeze.</param>
+        /// <param name="chars">
+        /// A set of characters of which runs are replaced by a single
+        /// character. Specify <c>null</c> to remove all runs of identical
+        /// characters.
+        /// </param>
+        /// <returns>
+        /// A new string where runs of the same character are replaced with a
+        /// single character.
+        /// </returns>
+        public static string Squeeze(this string value, params char[] chars)
+        {
+            if (value == null) return null;
+            if (value.Length == 0) return string.Empty;
+
+            var builder = new StringBuilder(value.Length);
+
+            builder.Append(value[0]);
+            for (int i = 1; i < value.Length; i++)
+            {
+                var c = value[i];
+                var inSet = (chars == null || chars.Contains(c));
+
+                if (c != value[i - 1] || !inSet)
+                    builder.Append(c);
+            }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Removes line endings from the string and replaces multiple
         /// occurrences of white-space by a single occurrence.
         /// </summary>
         /// <param name="value">

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 
 namespace Wakawaka.Documentation.Tags
@@ -42,11 +41,11 @@ namespace Wakawaka.Documentation.Tags
         /// the node.
         /// </summary>
         /// <param name="element">
-        /// The <see cref="XElement"/> to create a <see cref="Tag"/> object 
+        /// The <see cref="XElement"/> to create a <see cref="Tag"/> object
         /// from.
         /// </param>
         /// <returns>
-        /// A newly created object that inherits from the <see cref="Tag"/> 
+        /// A newly created object that inherits from the <see cref="Tag"/>
         /// class.
         /// </returns>
         public static Tag Create(XElement element)
@@ -67,7 +66,7 @@ namespace Wakawaka.Documentation.Tags
         }
 
         /// <summary>
-        /// Renders a Markdown-formatted representation of the <see 
+        /// Renders a Markdown-formatted representation of the <see
         /// cref="Tag"/>.
         /// </summary>
         /// <param name="writer">
@@ -77,7 +76,7 @@ namespace Wakawaka.Documentation.Tags
         {
             var children = Element.Nodes();
 
-            // Render the first child to a separate writer, so that we can 
+            // Render the first child to a separate writer, so that we can
             // eliminate the leading white-space before rendering it.
             var first = children.FirstOrDefault();
             if (first != null)

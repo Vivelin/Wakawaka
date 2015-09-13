@@ -10,8 +10,8 @@ namespace Wakawaka.Documentation.Tags
         private ID cref;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SeeTag"/> class for
-        /// the specified element.
+        /// Initializes a new instance of the <see cref="SeeTag"/> class for the
+        /// specified element.
         /// </summary>
         /// <param name="element">
         /// The <see cref="XElement"/> object to represent.

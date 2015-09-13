@@ -20,8 +20,8 @@ namespace Wakawaka.Documentation.Tags
         }
 
         /// <summary>
-        /// Gets an <see cref="ID"/> object that represents the reference to 
-        /// the exception type.
+        /// Gets an <see cref="ID"/> object that represents the reference to the
+        /// exception type.
         /// </summary>
         public ID CRef { get; }
     }

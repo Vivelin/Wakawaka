@@ -15,7 +15,7 @@ namespace Wakawaka.Documentation
         /// </summary>
         /// <param name="id">The ID string that idenfities the member.</param>
         /// <param name="member">
-        /// The <see cref="XElement"/> object that contains the XML 
+        /// The <see cref="XElement"/> object that contains the XML
         /// documentation for the member.
         /// </param>
         protected Member(string id, XElement member)
@@ -30,9 +30,21 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
+        /// Gets a string that is used to specify an example of how to use a
+        /// method or other library member.
+        /// </summary>
+        public Tag Example { get; }
+
+        /// <summary>
         /// Gets the ID string that identifies the <see cref="Member"/>.
         /// </summary>
         public ID ID { get; protected set; }
+
+        /// <summary>
+        /// Gets a string that is used to add information about a type,
+        /// supplementing the information specified with <see cref="Summary"/>.
+        /// </summary>
+        public Tag Remarks { get; }
 
         /// <summary>
         /// Gets a string that is used to describe a member.
@@ -40,27 +52,14 @@ namespace Wakawaka.Documentation
         public Tag Summary { get; }
 
         /// <summary>
-        /// Gets a string that is used to specify an example of how to use a 
-        /// method or other library member.
-        /// </summary>
-        public Tag Example { get; }
-
-        /// <summary>
-        /// Gets a string that is used to add information about a type, 
-        /// supplementing the information specified with <see cref="Summary"/>.
-        /// </summary>
-        public Tag Remarks { get; }
-
-        /// <summary>
-        /// Creates a new <see cref="Member"/> object for the specified 
-        /// element.
+        /// Creates a new <see cref="Member"/> object for the specified element.
         /// </summary>
         /// <param name="element">
-        /// The <see cref="XElement"/> object that contains the documentation 
+        /// The <see cref="XElement"/> object that contains the documentation
         /// for which to create a new <see cref="Member"/>.
         /// </param>
         /// <returns>
-        /// A new <see cref="Member"/> object of the type corresponding to the 
+        /// A new <see cref="Member"/> object of the type corresponding to the
         /// member described in <paramref name="element"/>.
         /// </returns>
         /// <exception cref="ArgumentException">
@@ -123,7 +122,16 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Renders a Markdown-formatted representation of the <see 
+        /// Returns a string representation of the <see cref="Member"/>.
+        /// </summary>
+        /// <returns>A string containing the ID string.</returns>
+        public override string ToString()
+        {
+            return ID.FullName;
+        }
+
+        /// <summary>
+        /// Renders a Markdown-formatted representation of the <see
         /// cref="Member"/>'s name and summary.
         /// </summary>
         /// <param name="writer">
@@ -139,16 +147,6 @@ namespace Wakawaka.Documentation
             writer.Write(' ');
             writer.WriteLine(ID.Namespace);
             writer.WriteLine();
-        }
-
-
-        /// <summary>
-        /// Returns a string representation of the <see cref="Member"/>.
-        /// </summary>
-        /// <returns>A string containing the ID string.</returns>
-        public override string ToString()
-        {
-            return ID.FullName;
         }
     }
 }

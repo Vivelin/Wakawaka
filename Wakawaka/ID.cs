@@ -14,10 +14,11 @@ namespace Wakawaka
         /// </summary>
         protected readonly Regex parser =
             new Regex(@"^(?<P>[NTFPME!]):(?<N>(?:[^*@^|![(\s]+))(?<E>.*)$");
+
         private string identifier;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ID"/> class for the 
+        /// Initializes a new instance of the <see cref="ID"/> class for the
         /// specified cref <see cref="XAttribute"/>.
         /// </summary>
         /// <param name="cref">The cref <see cref="XAttribute"/>.</param>
@@ -30,7 +31,7 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ID"/> class for the 
+        /// Initializes a new instance of the <see cref="ID"/> class for the
         /// specified ID string.
         /// </summary>
         /// <param name="identifier">A string containing the ID string.</param>
@@ -49,13 +50,13 @@ namespace Wakawaka
         {
             /// <summary>
             /// Indicates a namespace. You cannot add documentation comments to
-            /// a namespace, but you can make cref references to them, where 
+            /// a namespace, but you can make cref references to them, where
             /// supported.
             /// </summary>
             Namespace = 'N',
 
             /// <summary>
-            /// Indicates a type, e.g. class, interface, struct, enum, or 
+            /// Indicates a type, e.g. class, interface, struct, enum, or
             /// delegate.
             /// </summary>
             Type = 'T',
@@ -71,7 +72,7 @@ namespace Wakawaka
             Property = 'P',
 
             /// <summary>
-            /// Indicates a method, including special methods such as 
+            /// Indicates a method, including special methods such as
             /// constructors and operators.
             /// </summary>
             Method = 'M',
@@ -88,21 +89,9 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Gets a value indicating the kind of member being identified.
+        /// Gets any additional unparsed information present in the ID string.
         /// </summary>
-        public MemberType Prefix { get; protected set; }
-
-        /// <summary>
-        /// Gets the fully qualified name of the member being identified, 
-        /// starting at the root of the namespace. Periods in names have been 
-        /// replaced with `#`.
-        /// </summary>
-        public string FullName { get; protected set; }
-
-        /// <summary>
-        /// Gets the namespace the member being identified exists in.
-        /// </summary>
-        public string Namespace { get; protected set; }
+        public string Arguments { get; protected set; }
 
         /// <summary>
         /// If the member being identified is not a type or namespace, gets the
@@ -111,25 +100,26 @@ namespace Wakawaka
         public string ClassName { get; protected set; }
 
         /// <summary>
+        /// Gets the fully qualified name of the member being identified,
+        /// starting at the root of the namespace. Periods in names have been
+        /// replaced with `#`.
+        /// </summary>
+        public string FullName { get; protected set; }
+
+        /// <summary>
         /// Gets the name of the member being identified.
         /// </summary>
         public string Name { get; protected set; }
 
         /// <summary>
-        /// Gets any additional unparsed information present in the ID string.
+        /// Gets the namespace the member being identified exists in.
         /// </summary>
-        public string Arguments { get; protected set; }
+        public string Namespace { get; protected set; }
 
         /// <summary>
-        /// Converts the specified <see cref="ID"/> string to a <see 
-        /// cref="String"/>.
+        /// Gets a value indicating the kind of member being identified.
         /// </summary>
-        /// <param name="id">The ID string to convert.</param>
-        /// <returns>The converted <see cref="String"/>.</returns>
-        public static implicit operator string(ID id)
-        {
-            return id.ToString();
-        }
+        public MemberType Prefix { get; protected set; }
 
         /// <summary>
         /// Converts the specified string to an <see cref="ID"/> string.
@@ -142,14 +132,14 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Returns a string representation of the <see cref="ID"/> string.
+        /// Converts the specified <see cref="ID"/> string to a <see
+        /// cref="String"/>.
         /// </summary>
-        /// <returns>
-        /// A string containing the fully qualified ID string.
-        /// </returns>
-        public override string ToString()
+        /// <param name="id">The ID string to convert.</param>
+        /// <returns>The converted <see cref="String"/>.</returns>
+        public static implicit operator string (ID id)
         {
-            return identifier;
+            return id.ToString();
         }
 
         /// <summary>
@@ -161,6 +151,17 @@ namespace Wakawaka
         public void Render(MarkdownTextWriter writer)
         {
             writer.WriteLink(FullName, FullName);
+        }
+
+        /// <summary>
+        /// Returns a string representation of the <see cref="ID"/> string.
+        /// </summary>
+        /// <returns>
+        /// A string containing the fully qualified ID string.
+        /// </returns>
+        public override string ToString()
+        {
+            return identifier;
         }
 
         /// <summary>

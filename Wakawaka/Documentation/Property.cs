@@ -18,7 +18,7 @@ namespace Wakawaka.Documentation
         /// </summary>
         /// <param name="id">The ID string that idenfities the property.</param>
         /// <param name="member">
-        /// The <see cref="XElement"/> object that contains the XML 
+        /// The <see cref="XElement"/> object that contains the XML
         /// documentation for the property.
         /// </param>
         public Property(string id, XElement member)
@@ -28,13 +28,22 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Gets the collection of tags that are used to describe which 
+        /// Gets the collection of tags that are used to describe which
         /// exceptions can be thrown.
         /// </summary>
         public IEnumerable<Tag> Exceptions { get; }
 
         /// <summary>
-        /// Renders a Markdown-formatted representation of the <see 
+        /// Returns a string representation of the <see cref="Property"/>.
+        /// </summary>
+        /// <returns>A string containing the name of the property.</returns>
+        public override string ToString()
+        {
+            return String.Format("{0}.{1} Property", ID.ClassName, ID.Name);
+        }
+
+        /// <summary>
+        /// Renders a Markdown-formatted representation of the <see
         /// cref="Property"/>'s name and summary.
         /// </summary>
         /// <param name="writer">
@@ -57,15 +66,6 @@ namespace Wakawaka.Documentation
                     writer.WriteLine();
                 }
             }
-        }
-
-        /// <summary>
-        /// Returns a string representation of the <see cref="Property"/>.
-        /// </summary>
-        /// <returns>A string containing the name of the property.</returns>
-        public override string ToString()
-        {
-            return String.Format("{0}.{1} Property", ID.ClassName, ID.Name);
         }
     }
 }

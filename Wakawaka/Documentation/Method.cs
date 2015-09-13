@@ -17,8 +17,8 @@ namespace Wakawaka.Documentation
         /// </summary>
         /// <param name="id">The ID string that idenfities the method.</param>
         /// <param name="member">
-        /// The <see cref="XElement"/> object that contains the XML 
-        /// documenation for the method.
+        /// The <see cref="XElement"/> object that contains the XML documenation
+        /// for the method.
         /// </param>
         public Method(string id, XElement member)
             : base(id, member)
@@ -31,19 +31,7 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Gets the tag that is used to describe the return value of the
-        /// method.
-        /// </summary>
-        public Tag ReturnValue { get; }
-
-        /// <summary>
-        /// Gets the collection of tags that are used to describe the 
-        /// parameters for the method.
-        /// </summary>
-        public IEnumerable<Tag> Parameters { get; }
-
-        /// <summary>
-        /// Gets the collection of tags that are used to describe which 
+        /// Gets the collection of tags that are used to describe which
         /// exceptions can be thrown.
         /// </summary>
         public IEnumerable<Tag> Exceptions { get; }
@@ -57,7 +45,30 @@ namespace Wakawaka.Documentation
         }
 
         /// <summary>
-        /// Renders a Markdown representation of the <see cref="Method"/>'s 
+        /// Gets the collection of tags that are used to describe the parameters
+        /// for the method.
+        /// </summary>
+        public IEnumerable<Tag> Parameters { get; }
+
+        /// <summary>
+        /// Gets the tag that is used to describe the return value of the
+        /// method.
+        /// </summary>
+        public Tag ReturnValue { get; }
+
+        /// <summary>
+        /// Returns a string representation of the <see cref="Method"/>.
+        /// </summary>
+        /// <returns>A string containing the name of the method.</returns>
+        public override string ToString()
+        {
+            if (IsConstructor)
+                return String.Format("{0} Constructor", ID.ClassName);
+            return String.Format("{0}.{1} Method", ID.ClassName, ID.Name);
+        }
+
+        /// <summary>
+        /// Renders a Markdown representation of the <see cref="Method"/>'s
         /// name, summary and syntax.
         /// </summary>
         /// <param name="writer">
@@ -99,17 +110,6 @@ namespace Wakawaka.Documentation
                     writer.WriteLine();
                 }
             }
-        }
-
-        /// <summary>
-        /// Returns a string representation of the <see cref="Method"/>.
-        /// </summary>
-        /// <returns>A string containing the name of the method.</returns>
-        public override string ToString()
-        {
-            if (IsConstructor)
-                return String.Format("{0} Constructor", ID.ClassName);
-            return String.Format("{0}.{1} Method", ID.ClassName, ID.Name);
         }
     }
 }

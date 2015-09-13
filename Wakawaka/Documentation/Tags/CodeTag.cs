@@ -8,7 +8,7 @@ namespace Wakawaka.Documentation.Tags
     public class CodeTag : Tag
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeTag"/> class for 
+        /// Initializes a new instance of the <see cref="CodeTag"/> class for
         /// the specified element.
         /// </summary>
         /// <param name="element">
@@ -30,7 +30,7 @@ namespace Wakawaka.Documentation.Tags
         }
 
         /// <summary>
-        /// Renders a Markdown-formatted representation of the 
+        /// Renders a Markdown-formatted representation of the
         /// <c>&lt;code&gt;</c> tag.
         /// </summary>
         /// <param name="writer">

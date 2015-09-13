@@ -9,16 +9,17 @@ namespace Wakawaka.Documentation
     public class Field : Member
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Field"/> class with
-        /// the specified ID string and XML documentation.
+        /// Initializes a new instance of the <see cref="Field"/> class with the
+        /// specified ID string and XML documentation.
         /// </summary>
         /// <param name="id">The ID string that idenfities the field.</param>
         /// <param name="member">
-        /// The <see cref="XElement"/> object that contains the XML 
+        /// The <see cref="XElement"/> object that contains the XML
         /// documentation for the field.
         /// </param>
         public Field(string id, XElement member)
-            : base(id, member) { }
+            : base(id, member)
+        { }
 
         /// <summary>
         /// Returns a string representation of the <see cref="Field"/>.

@@ -5,14 +5,14 @@ using System.Text;
 namespace Wakawaka
 {
     /// <summary>
-    /// Provides a text writer that can generate Markdown-formatted streams or 
+    /// Provides a text writer that can generate Markdown-formatted streams or
     /// files.
     /// </summary>
     public class MarkdownTextWriter : TextWriter
     {
         private const string CodeBlockFence = "```";
-        private TextWriter writer;
         private MarkdownTextWriterSettings settings;
+        private TextWriter writer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MarkdownTextWriter"/>
@@ -34,14 +34,25 @@ namespace Wakawaka
         /// The <see cref="TextWriter"/> object to write to.
         /// </param>
         /// <param name="settings">
-        /// A <see cref="MarkdownTextWriterSettings"/> object that controls the 
+        /// A <see cref="MarkdownTextWriterSettings"/> object that controls the
         /// formatting of the new <see cref="MarkdownTextWriter"/>.
         /// </param>
-        public MarkdownTextWriter(TextWriter writer, 
+        public MarkdownTextWriter(TextWriter writer,
             MarkdownTextWriterSettings settings)
         {
             this.writer = writer;
             this.settings = settings;
+        }
+
+        /// <summary>
+        /// Gets the character encoding of the document being written.
+        /// </summary>
+        public override Encoding Encoding
+        {
+            get
+            {
+                return writer.Encoding;
+            }
         }
 
         /// <summary>
@@ -56,31 +67,7 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Gets the <see cref="MarkdownTextWriterSettings"/> object that 
-        /// controls the formatting of this <see cref="MarkdownTextWriter"/>.
-        /// </summary>
-        public MarkdownTextWriterSettings Settings
-        {
-            get
-            {
-                return settings ?? MarkdownTextWriterSettings.Defaults;
-            }
-        }
-
-        #region TextWriter overrides that use `writer` instead of `base`
-        /// <summary>
-        /// Gets the character encoding of the document being written.
-        /// </summary>
-        public override Encoding Encoding
-        {
-            get
-            {
-                return writer.Encoding;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the line terminator string used by the <see 
+        /// Gets or sets the line terminator string used by the <see
         /// cref="MarkdownTextWriter"/>.
         /// </summary>
         public override string NewLine
@@ -96,13 +83,24 @@ namespace Wakawaka
         }
 
         /// <summary>
+        /// Gets the <see cref="MarkdownTextWriterSettings"/> object that
+        /// controls the formatting of this <see cref="MarkdownTextWriter"/>.
+        /// </summary>
+        public MarkdownTextWriterSettings Settings
+        {
+            get
+            {
+                return settings ?? MarkdownTextWriterSettings.Defaults;
+            }
+        }
+
+        /// <summary>
         /// Encodes the specified string as HTML.
         /// </summary>
         /// <param name="value">The string to encode.</param>
         /// <returns>A string with special HTML entities escaped.</returns>
         /// <remarks>
-        /// This function replaces only the characters &quot;, &amp; &lt; and 
-        /// &gt;.
+        /// This function replaces only the characters ", &amp; &lt; and &gt;.
         /// </remarks>
         public static string Encode(string value)
         {
@@ -118,15 +116,19 @@ namespace Wakawaka
                     case '"':
                         stringBuilder.Append("&quot;");
                         break;
+
                     case '&':
                         stringBuilder.Append("&amp;");
                         break;
+
                     case '<':
                         stringBuilder.Append("&lt;");
                         break;
+
                     case '>':
                         stringBuilder.Append("&gt;");
                         break;
+
                     default:
                         stringBuilder.Append(c);
                         break;
@@ -158,7 +160,7 @@ namespace Wakawaka
         /// The character to write to the text stream.
         /// </param>
         /// <remarks>
-        /// This is technically the only function we need to override, because 
+        /// This is technically the only function we need to override, because
         /// all other <c>Write</c> and <c>WriteLine</c> methods eventually end
         /// up calling <see cref="TextWriter.Write(char)"/>.
         /// </remarks>
@@ -166,7 +168,6 @@ namespace Wakawaka
         {
             writer.Write(value);
         }
-        #endregion
 
         /// <summary>
         /// Writes a string to the text stream with special characters replaced
@@ -178,96 +179,6 @@ namespace Wakawaka
         {
             value = Encode(value);
             writer.Write(value);
-        }
-
-        /// <summary>
-        /// Writes a string to the text stream.
-        /// </summary>
-        /// <param name="value">The string to write to the text stream.</param>
-        public void WriteRaw(string value)
-        {
-            writer.Write(value);
-        }
-
-        /// <summary>
-        /// Writes a string followed by a line terminator to the text stream.
-        /// </summary>
-        /// <param name="value">The string to write to the text stream.</param>
-        public void WriteLineRaw(string value)
-        {
-            writer.WriteLine(value);
-        }
-
-        /// <summary>
-        /// Writes an explicit line break to the text stream.
-        /// </summary>
-        public void WriteLineBreak()
-        {
-            writer.WriteLine("  ");
-        }
-
-        /// <summary>
-        /// Writes a Markdown-formatted heading to the text stream.
-        /// </summary>
-        /// <param name="value">
-        /// The text to format and write to the text stream.
-        /// </param>
-        /// <param name="level">
-        /// The level of the heading specified as a value between 1 and 6.
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="level"/> is less than 1 or greater than 6.
-        /// </exception>
-        /// <remarks>
-        /// For level 1 and 2 headings, the heading is formatted as a Setext 
-        /// header. For level 3 to 6 headers, the heading is formatted as an 
-        /// ATX header.
-        /// </remarks>
-        public void WriteHeading(string value, int level = 1)
-        {
-            if (level >= 1 && level <= 2)
-            {
-                WriteSetextHeader(value, level);
-            }
-            else if (level >= 3 && level <= 6)
-            {
-                WriteAtxHeader(value, level);
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException(nameof(level), 
-                    SR.HeaderOutOfRange);
-            }
-        }
-
-        /// <summary>
-        /// Writes a Setext-style header to the text stream.
-        /// </summary>
-        /// <param name="value">
-        /// The text to format as heading and write to the text stream.
-        /// </param>
-        /// <param name="level">
-        /// The level of the heading specified as a value between 1 and 2.
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="level"/> is less than 1 or greater than 2.
-        /// </exception>
-        public void WriteSetextHeader(string value, int level = 1)
-        {
-            if (level < 1 || level > 2)
-            {
-                throw new ArgumentOutOfRangeException(nameof(level),
-                    SR.SetextHeaderOutOfRange);
-            }
-
-            char lineChar = '=';
-            if (level == 2)
-                lineChar = '-';
-
-            WriteLine(value);
-            for (var i = value.Length; i > 0; i--)
-                Write(lineChar);
-            WriteLine();
         }
 
         /// <summary>
@@ -346,16 +257,54 @@ namespace Wakawaka
         }
 
         /// <summary>
-        /// Writes a text with strong emphasis to the text stream.
+        /// Writes a Markdown-formatted heading to the text stream.
         /// </summary>
         /// <param name="value">
         /// The text to format and write to the text stream.
         /// </param>
-        public void WriteStrong(string value)
+        /// <param name="level">
+        /// The level of the heading specified as a value between 1 and 6.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="level"/> is less than 1 or greater than 6.
+        /// </exception>
+        /// <remarks>
+        /// For level 1 and 2 headings, the heading is formatted as a Setext
+        /// header. For level 3 to 6 headers, the heading is formatted as an ATX
+        /// header.
+        /// </remarks>
+        public void WriteHeading(string value, int level = 1)
         {
-            Write("**");
-            Write(value);
-            Write("**");
+            if (level >= 1 && level <= 2)
+            {
+                WriteSetextHeader(value, level);
+            }
+            else if (level >= 3 && level <= 6)
+            {
+                WriteAtxHeader(value, level);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(level),
+                    SR.HeaderOutOfRange);
+            }
+        }
+
+        /// <summary>
+        /// Writes an explicit line break to the text stream.
+        /// </summary>
+        public void WriteLineBreak()
+        {
+            writer.WriteLine("  ");
+        }
+
+        /// <summary>
+        /// Writes a string followed by a line terminator to the text stream.
+        /// </summary>
+        /// <param name="value">The string to write to the text stream.</param>
+        public void WriteLineRaw(string value)
+        {
+            writer.WriteLine(value);
         }
 
         /// <summary>
@@ -399,6 +348,58 @@ namespace Wakawaka
                 Write('"');
             }
             Write(')');
+        }
+
+        /// <summary>
+        /// Writes a string to the text stream.
+        /// </summary>
+        /// <param name="value">The string to write to the text stream.</param>
+        public void WriteRaw(string value)
+        {
+            writer.Write(value);
+        }
+
+        /// <summary>
+        /// Writes a Setext-style header to the text stream.
+        /// </summary>
+        /// <param name="value">
+        /// The text to format as heading and write to the text stream.
+        /// </param>
+        /// <param name="level">
+        /// The level of the heading specified as a value between 1 and 2.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="level"/> is less than 1 or greater than 2.
+        /// </exception>
+        public void WriteSetextHeader(string value, int level = 1)
+        {
+            if (level < 1 || level > 2)
+            {
+                throw new ArgumentOutOfRangeException(nameof(level),
+                    SR.SetextHeaderOutOfRange);
+            }
+
+            char lineChar = '=';
+            if (level == 2)
+                lineChar = '-';
+
+            WriteLine(value);
+            for (var i = value.Length; i > 0; i--)
+                Write(lineChar);
+            WriteLine();
+        }
+
+        /// <summary>
+        /// Writes a text with strong emphasis to the text stream.
+        /// </summary>
+        /// <param name="value">
+        /// The text to format and write to the text stream.
+        /// </param>
+        public void WriteStrong(string value)
+        {
+            Write("**");
+            Write(value);
+            Write("**");
         }
     }
 }

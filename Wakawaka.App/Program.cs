@@ -1,12 +1,24 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 
 namespace Wakawaka.App
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static string GetTempWorkDir(string repo = null)
+        {
+            var path = Path.Combine(Path.GetTempPath(), "Wakawaka");
+            if (repo == null)
+                repo = Path.GetRandomFileName();
+            path = Path.Combine(path, repo);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            return Path.GetFullPath(path);
+        }
+
+        private static void Main(string[] args)
         {
             Console.Title = "Wakawaka";
 
@@ -26,19 +38,6 @@ namespace Wakawaka.App
                 Console.Error.WriteLine("Usage: {0} filename",
                     AppDomain.CurrentDomain.FriendlyName);
             }
-        }
-
-        static string GetTempWorkDir(string repo = null)
-        {
-            var path = Path.Combine(Path.GetTempPath(), "Wakawaka");
-            if (repo == null)
-                repo = Path.GetRandomFileName();
-            path = Path.Combine(path, repo);
-
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            return Path.GetFullPath(path);
         }
     }
 }

@@ -4,6 +4,8 @@ namespace Wakawaka
 {
     internal class SR : Resources.Strings
     {
-        private SR() { }
+        private SR()
+        {
+        }
     }
 }
