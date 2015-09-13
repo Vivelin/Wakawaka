@@ -39,7 +39,11 @@ namespace Wakawaka.App
         /// The name of the folder wherein the generated files will be stored.
         /// If it does not exist, it will be created.
         /// </param>
-        public void GenerateDocumentation(string outputFolder)
+        /// <returns>
+        /// A collection of strings containing the paths to the generated 
+        /// files.
+        /// </returns>
+        public IEnumerable<string> GenerateDocumentation(string outputFolder)
         {
             if (!Directory.Exists(outputFolder))
                 Directory.CreateDirectory(outputFolder);
@@ -61,6 +65,8 @@ namespace Wakawaka.App
                 {
                     writer.Close();
                 }
+
+                yield return path;
             }
         }
 

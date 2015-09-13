@@ -14,7 +14,7 @@ namespace Wakawaka.App
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Wiki"/> class for the
-        /// specified URI.
+        /// specified URI and working directory without authentication.
         /// </summary>
         /// <param name="uri">
         /// The URI to the git repository of the Wiki, e.g. 
@@ -25,9 +25,28 @@ namespace Wakawaka.App
         /// repository will be stored.
         /// </param>
         public Wiki(string uri, string workDir)
+            : this(uri, workDir, WikiSettings.Defaults)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Wiki"/> class for the
+        /// specified URI, working directory and settings.
+        /// </summary>
+        /// <param name="uri">
+        /// The URI to the git repository of the Wiki, e.g. 
+        /// https://github.com/horsedrowner/Wakawaka.wiki.git.
+        /// </param>
+        /// <param name="workDir">
+        /// The path to the directory where a local working copy of the wiki 
+        /// repository will be stored.
+        /// </param>
+        /// <param name="settings">Specifies authentication settings.</param>
+        public Wiki(string uri, string workDir, WikiSettings settings)
         {
             Uri = uri;
             WorkingDirectory = workDir;
+            Settings = settings;
         }
 
         /// <summary>
@@ -42,6 +61,11 @@ namespace Wakawaka.App
         public string WorkingDirectory { get; set; }
 
         /// <summary>
+        /// Gets the authentication settings for this wiki.
+        /// </summary>
+        public WikiSettings Settings { get; }
+
+        /// <summary>
         /// Publishes the specified project's documentation to the wiki.
         /// </summary>
         /// <param name="project">
@@ -49,9 +73,13 @@ namespace Wakawaka.App
         /// </param>
         public void Publish(Project project)
         {
-            var path = Repository.Clone(Uri, WorkingDirectory);
+            var path = Repository.Clone(Uri, WorkingDirectory, Settings.GetOptions());
             using (var repo = new Repository(path))
             {
+                var pages = project.GenerateDocumentation(WorkingDirectory);
+                repo.Stage(pages);
+
+                var message = "Wakawaka wiki update";
                 
             }
         }
